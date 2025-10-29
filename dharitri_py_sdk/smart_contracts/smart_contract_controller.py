@@ -51,11 +51,11 @@ class SmartContractController(BaseController):
         abi: Optional[Abi] = None,
         gas_limit_estimator: Optional[IGasLimitEstimator] = None,
     ) -> None:
+        super().__init__(gas_limit_estimator=gas_limit_estimator)
         self.abi = abi
         self.factory = SmartContractTransactionsFactory(
-            TransactionsFactoryConfig(chain_id),
+            config=TransactionsFactoryConfig(chain_id),
             abi=self.abi,
-            gas_limit_estimator=gas_limit_estimator,
         )
         self.parser = SmartContractTransactionsOutcomeParser(abi=self.abi)
         self.network_provider = network_provider
@@ -80,7 +80,7 @@ class SmartContractController(BaseController):
         transaction = self.factory.create_transaction_for_deploy(
             sender=sender.address,
             bytecode=bytecode,
-            gas_limit=gas_limit,
+            gas_limit=gas_limit or 0,
             arguments=arguments,
             native_transfer_amount=native_transfer_amount,
             is_upgradeable=is_upgradeable,
@@ -94,8 +94,8 @@ class SmartContractController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -128,7 +128,7 @@ class SmartContractController(BaseController):
             sender=sender.address,
             contract=contract,
             bytecode=bytecode,
-            gas_limit=gas_limit,
+            gas_limit=gas_limit or 0,
             arguments=arguments,
             native_transfer_amount=native_transfer_amount,
             is_upgradeable=is_upgradeable,
@@ -142,8 +142,8 @@ class SmartContractController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -165,7 +165,7 @@ class SmartContractController(BaseController):
         transaction = self.factory.create_transaction_for_execute(
             sender=sender.address,
             contract=contract,
-            gas_limit=gas_limit,
+            gas_limit=gas_limit or 0,
             function=function,
             arguments=arguments,
             native_transfer_amount=native_transfer_amount,
@@ -177,8 +177,8 @@ class SmartContractController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction

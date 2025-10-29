@@ -11,7 +11,7 @@ from dharitri_py_sdk.governance.resources import VoteType
 class TestGovernanceTransactionsFactory:
     factory = GovernanceTransactionsFactory(TransactionsFactoryConfig("D"))
     commit_hash = "1db734c0315f9ec422b88f679ccfe3e0197b9d67"
-    alice = Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh")
+    alice = Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf")
     governance_address = "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqrllls7q9tur"
 
     testdata = Path(__file__).parent.parent / "testutils" / "testdata"
@@ -62,7 +62,7 @@ class TestGovernanceTransactionsFactory:
             sender=self.alice,
             proposers=[
                 self.alice,
-                Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"),
+                Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
             ],
         )
 
@@ -73,7 +73,7 @@ class TestGovernanceTransactionsFactory:
         assert transaction.gas_limit == 150_273_500
         assert (
             transaction.data.decode()
-            == "clearEndedProposals@391f932707a9dfa86d3bcbb3d5d0cc9f25ad0e680fe499f107d844b7e6ea71d5@3ddf173c9e02c0e58fb1e552f473d98da6a4c3f23c7e034c912ee98a8dddce17"
+            == "clearEndedProposals@0139472eff6886771a982f3083da5d421f24c29181e63888228dc81ca60d69e1@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8"
         )
 
     def test_create_transaction_for_claiming_accumulated_fees(self):

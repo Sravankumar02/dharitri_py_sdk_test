@@ -29,7 +29,7 @@ class TestDelegationTransactionsFactory:
         delegation_contract = Address.new_from_bech32("drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqtlllllsjnaptx")
 
         validator_secret_key = ValidatorSecretKey.from_string(
-            "132e9b47291fcc62c64b334fd434ab2db74bf64b42d4cc1b4cedd10df77c1936"
+            "7cff99bd671502db7d15bc8abc0c9a804fb925406fbdd50f1e4c17a4cd774247"
         )
         validator_signer = ValidatorSigner(validator_secret_key)
 
@@ -51,7 +51,7 @@ class TestDelegationTransactionsFactory:
         assert transaction.data
         assert (
             transaction.data.decode()
-            == "addNodes@d3e0427c22ff9cc80ef4156f976644cfa25c54e5a69ed199132053f8cbbfddd4eb15a2f732a3c9b392169c8b1d060e0b5ab0d88b4dd7b4010fa051a17ef81bdbace5e68025965b00bf48e14a9ec8d8e2a8bcc9e62f97ddac3268f6b805f7b80e@b368bdf8d3afbce33cae45b31f70608e38699db578b6a9423c9bd094b5071468f85ea21241aa090065dd44c181d53a83"
+            == "addNodes@e7beaa95b3877f47348df4dd1cb578a4f7cabf7a20bfeefe5cdd263878ff132b765e04fef6f40c93512b666c47ed7719b8902f6c922c04247989b7137e837cc81a62e54712471c97a2ddab75aa9c2f58f813ed4c0fa722bde0ab718bff382208@81109fa1c8d3dc7b6c2d6e65206cc0bc1a83c9b2d1eb91a601d66ad32def430827d5eb52917bd2b0d04ce195738db216"
         )
         assert transaction.value == 0
 
@@ -343,3 +343,24 @@ class TestDelegationTransactionsFactory:
         assert transaction.data.decode() == "withdraw"
         assert transaction.value == 0
         assert transaction.gas_limit == 11062000
+
+    def test_create_transaction_for_whitelist_for_merge(self):
+        sender = Address.new_from_bech32("drt18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawqfgxqg5")
+        delegation_contract = Address.new_from_bech32("drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqtlllllsjnaptx")
+        node_operator = Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf")
+
+        transaction = self.factory.create_transaction_for_whitelist_for_merge(
+            sender=sender,
+            delegation_contract=delegation_contract,
+            validator_operator=node_operator,
+        )
+
+        assert transaction.sender.to_bech32() == "drt18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawqfgxqg5"
+        assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqtlllllsjnaptx"
+        assert transaction.data
+        assert (
+            transaction.data.decode()
+            == "whitelistForMerge@0139472eff6886771a982f3083da5d421f24c29181e63888228dc81ca60d69e1"
+        )
+        assert transaction.value == 0
+        assert transaction.gas_limit == 5173000

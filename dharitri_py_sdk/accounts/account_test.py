@@ -8,38 +8,38 @@ from dharitri_py_sdk.wallet.keypair import KeyPair
 from dharitri_py_sdk.wallet.user_keys import UserSecretKey
 
 testwallets = Path(__file__).parent.parent / "testutils" / "testwallets"
-DUMMY_MNEMONIC = "bread type ride autumn corn maid benefit pole that normal orchard confirm napkin degree arrow guitar offer you enjoy bronze more onion push decorate"
+DUMMY_MNEMONIC = "moral volcano peasant pass circle pen over picture flat shop clap goat never lyrics gather prepare woman film husband gravity behind test tiger improve"
 alice = testwallets / "alice.pem"
 
 
 def test_create_account_from_pem():
     account = Account.new_from_pem(alice)
 
-    assert account.secret_key.get_bytes().hex() == "2bbcdae7e193924fa0d301e7a12c7defc92a93bc5e587cc968f04fcb86022e1c"
-    assert account.address.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+    assert account.secret_key.get_bytes().hex() == "413f42575f7f26fad3317a778771212fdb80245850981e48b58a4f25e344e8f9"
+    assert account.address.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
 
 
 def test_create_account_from_keystore():
     account = Account.new_from_keystore(testwallets / "withDummyMnemonic.json", "password")
 
-    assert account.secret_key.get_bytes().hex() == "2bbcdae7e193924fa0d301e7a12c7defc92a93bc5e587cc968f04fcb86022e1c"
-    assert account.address.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+    assert account.secret_key.get_bytes().hex() == "413f42575f7f26fad3317a778771212fdb80245850981e48b58a4f25e344e8f9"
+    assert account.address.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
 
 
 def test_create_account_from_mnemonic():
     account = Account.new_from_mnemonic(DUMMY_MNEMONIC)
 
-    assert account.secret_key.get_bytes().hex() == "2bbcdae7e193924fa0d301e7a12c7defc92a93bc5e587cc968f04fcb86022e1c"
-    assert account.address.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+    assert account.secret_key.get_bytes().hex() == "413f42575f7f26fad3317a778771212fdb80245850981e48b58a4f25e344e8f9"
+    assert account.address.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
 
 
 def test_create_account_from_keypair():
-    secret_key = UserSecretKey.new_from_string("2bbcdae7e193924fa0d301e7a12c7defc92a93bc5e587cc968f04fcb86022e1c")
+    secret_key = UserSecretKey.new_from_string("413f42575f7f26fad3317a778771212fdb80245850981e48b58a4f25e344e8f9")
     keypair = KeyPair(secret_key)
     account = Account.new_from_keypair(keypair)
 
     assert account.secret_key == secret_key
-    assert account.address.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+    assert account.address.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
 
 
 def test_account_nonce_holder():
@@ -62,8 +62,8 @@ def test_sign_transaction():
     tx = Transaction(
         nonce=89,
         value=0,
-        receiver=Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"),
-        sender=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
+        receiver=Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
+        sender=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
         data=None,
         gas_price=1000000000,
         gas_limit=50000,
@@ -74,25 +74,23 @@ def test_sign_transaction():
 
     account = Account.new_from_pem(alice)
     tx.signature = account.sign_transaction(tx)
-
     assert (
         tx.signature.hex()
-        == "bb930c96ae02700d70fd834da7f69bc01a16b4086374c6af6208ef5500996dccdc900e423248364d1a6451ec16b2728da662e0b0260a86caa9d0a9b61c6c2209"
+        == "6d308fe0924019c84d0c5894507435d4eedea1d3f992df5506daed1f2a2ec27e0c8176067c7a71b1680b3fe661c3b726db58fab4c9be52e169d7d4e78fd42a02"
     )
 
 
 def test_sign_message():
     message = Message(
         "hello".encode(),
-        address=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
+        address=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
     )
 
     account = Account.new_from_pem(alice)
     message.signature = account.sign_message(message)
-
     assert (
         message.signature.hex()
-        == "33edba0c691b5a3e8211a5fa63508a4f0c5ba7ac066413ea660e8ec9145c57521d13c304f21bd4687e9f4e118c8df0df6d20ad59b56dffbf749dd2b3b377740f"
+        == "e9ddb76b9df89a4e9d500fc02138c9a2cf8a9e75a3dd52a345eadd87da18682b302a8a915c7776a5919a2d2274a88922ae932e4f600ebf4e164ebd3b16d11d03"
     )
 
 
@@ -100,8 +98,8 @@ def test_sign_tx_by_hash():
     account = Account.new_from_pem(alice)
 
     tx = Transaction(
-        sender=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
-        receiver=Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"),
+        sender=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
+        receiver=Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
         value=0,
         gas_limit=50000,
         version=2,
@@ -114,5 +112,5 @@ def test_sign_tx_by_hash():
 
     assert (
         tx.signature.hex()
-        == "17e608f5ae9897b500046cf896cc5ea3de5208e8b42781733a9ae5a0f1ef11a5a0710b30b9df2bcc550fd83a379ffbb5dab20a6d803c755ca969a294f563ac08"
+        == "97500cef697c580695ddd2f589458bf1041da3a5a8e9217d497a84ede171d99236c71cdabb4b2abc82322d94a757338ca320a3016c7bb443ac6284cc4af9390f"
     )

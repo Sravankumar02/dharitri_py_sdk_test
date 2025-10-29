@@ -99,7 +99,7 @@ class TestTransactionAwaiter:
     def test_ensure_error_if_timeout(self):
         alice = load_wallets()["alice"]
         alice_address = Address.new_from_bech32(alice.label)
-        bob = Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2")
+        bob = Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c")
 
         api = ApiNetworkProvider("https://devnet-api.dharitri.org")
         watcher = TransactionAwaiter(

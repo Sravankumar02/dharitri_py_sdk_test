@@ -109,7 +109,7 @@ def test_parse_multisig_start_perform_action():
                 data=b"",
                 additional_data=[
                     bytes.fromhex(
-                        "00000001000000000500000000000000000500d006f73c4221216fa679bc559005584c4f1160e569e100000000000000000361646400000001000000010700000001391f932707a9dfa86d3bcbb3d5d0cc9f25ad0e680fe499f107d844b7e6ea71d5"
+                        "00000001000000000500000000000000000500d006f73c4221216fa679bc559005584c4f1160e569e1000000000000000003616464000000010000000107000000010139472eff6886771a982f3083da5d421f24c29181e63888228dc81ca60d69e1"
                     )
                 ],
             )
@@ -139,7 +139,7 @@ def test_parse_multisig_start_perform_action():
             }
         ),
         signers=[
-            Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh").get_public_key()
+            Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf").get_public_key()
         ],
     )
 
@@ -251,8 +251,7 @@ def test_multisig_start_perform_action():
 
     # Test was set up as follows:
     # Deploy multisig
-    # drtpy contract deploy --bytecode=./multisig-full.wasm --gas-limit=100000000 --recall-nonce --arguments 2 drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh
-    # drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2 --proxy=https://devnet-gateway.dharitri.org --pem=drt1test.pem --send
+    # drtpy contract deploy --bytecode=./multisig-full.wasm --gas-limit=100000000 --recall-nonce --arguments 2 drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c --proxy=https://devnet-gateway.dharitri.org --pem=drt1test.pem --send
     # Call "proposeTransferExecute"
     # drtpy contract call drt1qqqqqqqqqqqqqpgqnquyu4atwjz89p8vd8k0k7sz5qaeyfj2396qx9pykj --function proposeTransferExecute --gas-limit=20000000 --recall-nonce --arguments drt1r69gk66fmedhhcg24g2c5kn2f2a5k4kvpr6jfw67dn2lyydd8cfsncd6w8 1000000000000000000 0x00 --proxy=https://devnet-gateway.dharitri.org --pem=alice.pem --send
     # Call "sign"
@@ -290,7 +289,7 @@ def test_multisig_start_perform_action():
             },
         ),
         signers=[
-            Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh").get_public_key(),
-            Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2").get_public_key(),
+            Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf").get_public_key(),
+            Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c").get_public_key(),
         ],
     )

@@ -37,50 +37,47 @@ def test_address():
 
 
 def test_address_with_custom_hrp():
-    address = Address.new_from_hex("391f932707a9dfa86d3bcbb3d5d0cc9f25ad0e680fe499f107d844b7e6ea71d5", "test")
+    address = Address.new_from_hex("0139472eff6886771a982f3083da5d421f24c29181e63888228dc81ca60d69e1", "test")
     assert address.hrp == "test"
-    assert address.to_bech32() == "test18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82s4udwpa"
+    assert address.to_bech32() == "test1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ss5hqhtr"
 
-    address = Address.new_from_bech32("test18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82s4udwpa")
+    address = Address.new_from_bech32("test1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ss5hqhtr")
     assert address.hrp == "test"
-    assert address.to_hex() == "391f932707a9dfa86d3bcbb3d5d0cc9f25ad0e680fe499f107d844b7e6ea71d5"
+    assert address.to_hex() == "0139472eff6886771a982f3083da5d421f24c29181e63888228dc81ca60d69e1"
 
 
 def test_address_factory():
     factory_foo = AddressFactory("foo")
     factory_drt = AddressFactory("drt")
-    pubkey = bytes.fromhex("391f932707a9dfa86d3bcbb3d5d0cc9f25ad0e680fe499f107d844b7e6ea71d5")
+    pubkey = bytes.fromhex("0139472eff6886771a982f3083da5d421f24c29181e63888228dc81ca60d69e1")
 
     assert (
         factory_foo.create_from_public_key(pubkey).to_bech32()
-        == "foo18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sac6cct"
+        == "foo1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssunhpj4"
     )
     assert (
         factory_drt.create_from_public_key(pubkey).to_bech32()
-        == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
     )
 
 
 def test_is_valid_bech32():
-    assert is_valid_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh", "drt")
+    assert is_valid_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf", "drt")
     assert is_valid_bech32("foo1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssunhpj4", "foo")
     assert not is_valid_bech32("foobar", "foo")
-    assert not is_valid_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh", "foo")
+    assert not is_valid_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf", "foo")
 
 
 def test_get_address_shard():
     address_computer = AddressComputer()
-    address = Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh")
+    address = Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf")
     assert address_computer.get_shard_of_address(address) == 1
 
-    address = Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2")
-    assert address_computer.get_shard_of_address(address) == 1
-
-    address = Address.new_from_bech32("drt1kp072dwz0arfz8m5lzmlypgu2nme9l9q33aty0znualvanfvmy5qd3yy8q")
+    address = Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c")
     assert address_computer.get_shard_of_address(address) == 0
 
-
-test_get_address_shard()
+    address = Address.new_from_bech32("drt1k2s324ww2g0yj38qn2ch2jwctdy8mnfxep94q9arncc6xecg3xaq889n6e")
+    assert address_computer.get_shard_of_address(address) == 2
 
 
 def test_compute_contract_address():
@@ -97,10 +94,10 @@ def test_compute_contract_address():
 
 
 def test_address_with_library_config_hrp():
-    address = Address(bytes.fromhex("391f932707a9dfa86d3bcbb3d5d0cc9f25ad0e680fe499f107d844b7e6ea71d5"))
-    assert address.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+    address = Address(bytes.fromhex("0139472eff6886771a982f3083da5d421f24c29181e63888228dc81ca60d69e1"))
+    assert address.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
 
     LibraryConfig.default_address_hrp = "test"
-    address = Address(bytes.fromhex("391f932707a9dfa86d3bcbb3d5d0cc9f25ad0e680fe499f107d844b7e6ea71d5"))
-    assert address.to_bech32() == "test18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82s4udwpa"
+    address = Address(bytes.fromhex("0139472eff6886771a982f3083da5d421f24c29181e63888228dc81ca60d69e1"))
+    assert address.to_bech32() == "test1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ss5hqhtr"
     LibraryConfig.default_address_hrp = "drt"

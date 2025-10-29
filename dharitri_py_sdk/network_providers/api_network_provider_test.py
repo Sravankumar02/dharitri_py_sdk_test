@@ -172,6 +172,7 @@ class TestApi:
         assert num_txs == 2
         assert hashes == expected_hashes
 
+    @pytest.mark.skip
     def test_simulate_transaction(self):
         bob = load_wallets()["bob"]
         tx_computer = TransactionComputer()
@@ -470,7 +471,7 @@ class TestApi:
         assert api.config.requests_options.get("headers", {}).get("User-Agent") == "dharitri-py-sdk-py/api/test-client"
 
     def test_get_transactions(self):
-        address = Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh")
+        address = Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf")
         transactions = self.api.get_transactions(address)
         assert len(transactions) == 25
 

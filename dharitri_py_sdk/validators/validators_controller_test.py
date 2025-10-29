@@ -13,10 +13,10 @@ class TestValidatorsController:
     validators_file = testwallets / "validators.pem"
 
     alice = Account.new_from_pem(testwallets / "alice.pem")
-    reward_address = Address.new_from_bech32("drt1kp072dwz0arfz8m5lzmlypgu2nme9l9q33aty0znualvanfvmy5qd3yy8q")
+    reward_address = Address.new_from_bech32("drt1k2s324ww2g0yj38qn2ch2jwctdy8mnfxep94q9arncc6xecg3xaq889n6e")
 
     validator_pubkey = ValidatorPublicKey.from_string(
-        "d3e0427c22ff9cc80ef4156f976644cfa25c54e5a69ed199132053f8cbbfddd4eb15a2f732a3c9b392169c8b1d060e0b5ab0d88b4dd7b4010fa051a17ef81bdbace5e68025965b00bf48e14a9ec8d8e2a8bcc9e62f97ddac3268f6b805f7b80e"
+        "e7beaa95b3877f47348df4dd1cb578a4f7cabf7a20bfeefe5cdd263878ff132b765e04fef6f40c93512b666c47ed7719b8902f6c922c04247989b7137e837cc81a62e54712471c97a2ddab75aa9c2f58f813ed4c0fa722bde0ab718bff382208"
     )
 
     controller = ValidatorsController(chain_id="localnet")
@@ -30,7 +30,7 @@ class TestValidatorsController:
             rewards_address=self.reward_address,
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqplllskzf8kp"
         assert transaction.value == 2500000000000000000000
         assert transaction.nonce == 0
@@ -42,11 +42,11 @@ class TestValidatorsController:
         assert transaction.relayer is None
         assert (
             transaction.signature.hex()
-            == "b4b6ee45f8a1d882ebef9cb2044f2833280f96bea4dec6632db69020e4927764d49ecdb47fc3abc9e9d96f3f61490d5dcdde4ea768d0475f52fac2b8eb02d705"
+            == "7629051f3e8ad2746eec1b4a95cc8ce5de69ee253125e209204b64e4cdb757e90e8034fc7fa3afd4b569c7f1f06db85076c9a63a8545e4d96d4e3c1aabd0df07"
         )
         assert (
             transaction.data.decode()
-            == "stake@02@d3e0427c22ff9cc80ef4156f976644cfa25c54e5a69ed199132053f8cbbfddd4eb15a2f732a3c9b392169c8b1d060e0b5ab0d88b4dd7b4010fa051a17ef81bdbace5e68025965b00bf48e14a9ec8d8e2a8bcc9e62f97ddac3268f6b805f7b80e@900befe131dfdb8b40bfbf048ebb7f12b57d2d45bedd141bca848f343c7ac8c431af9faacbaaac1cf5eca9827aef9d06@b0b6349b3f693e08c433970d10efb2fe943eac4057a945146bee5fd163687f4e1800d541aa0f11bf9e4cb6552f512e126068e68eb471d18fcc477ddfe0b9b3334f34e30d8b7b2c08f914f4ae54454f75fb28922ba9fd28785bcadc627031fa8a@f1fdb60bab285322ffaff8ee27b2b90f03a71d1f172e077941f2212e7a27588ed873faf3bd7f37a8205fda788e1f3d88@b05fe535c27f46911f74f8b7f2051c54f792fca08c7ab23c53e77ececd2cd928"
+            == "stake@02@f8910e47cf9464777c912e6390758bb39715fffcb861b184017920e4a807b42553f2f21e7f3914b81bcf58b66a72ab16d97013ae1cff807cefc977ef8cbf116258534b9e46d19528042d16ef8374404a89b184e0a4ee18c77c49e454d04eae8d@1865870f7f69162a2dfefd33fe232a9ca984c6f22d1ee3f6a5b34a8eb8c9f7319001f29d5a2eed85c1500aca19fa4189@1b4e60e6d100cdf234d3427494dac55fbac49856cadc86bcb13a01b9bb05a0d9143e86c186c948e7ae9e52427c9523102efe9019a2a9c06db02993f2e3e6756576ae5a3ec7c235d548bc79de1a6990e1120ae435cb48f7fc436c9f9098b92a0d@12b309791213aac8ad9f34f0d912261e30f9ab060859e4d515e020a98b91d82a7cd334e4b504bb93d6b75347cccd6318@b2a11555ce521e4944e09ab17549d85b487dcd26c84b5017a39e31a3670889ba"
         )
 
     def test_create_transaction_for_staking_using_validators_file(self):
@@ -60,7 +60,7 @@ class TestValidatorsController:
             rewards_address=self.reward_address,
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqplllskzf8kp"
         assert transaction.value == 2500000000000000000000
         assert transaction.nonce == 0
@@ -72,11 +72,11 @@ class TestValidatorsController:
         assert transaction.relayer is None
         assert (
             transaction.signature.hex()
-            == "b4b6ee45f8a1d882ebef9cb2044f2833280f96bea4dec6632db69020e4927764d49ecdb47fc3abc9e9d96f3f61490d5dcdde4ea768d0475f52fac2b8eb02d705"
+            == "7629051f3e8ad2746eec1b4a95cc8ce5de69ee253125e209204b64e4cdb757e90e8034fc7fa3afd4b569c7f1f06db85076c9a63a8545e4d96d4e3c1aabd0df07"
         )
         assert (
             transaction.data.decode()
-            == "stake@02@d3e0427c22ff9cc80ef4156f976644cfa25c54e5a69ed199132053f8cbbfddd4eb15a2f732a3c9b392169c8b1d060e0b5ab0d88b4dd7b4010fa051a17ef81bdbace5e68025965b00bf48e14a9ec8d8e2a8bcc9e62f97ddac3268f6b805f7b80e@900befe131dfdb8b40bfbf048ebb7f12b57d2d45bedd141bca848f343c7ac8c431af9faacbaaac1cf5eca9827aef9d06@b0b6349b3f693e08c433970d10efb2fe943eac4057a945146bee5fd163687f4e1800d541aa0f11bf9e4cb6552f512e126068e68eb471d18fcc477ddfe0b9b3334f34e30d8b7b2c08f914f4ae54454f75fb28922ba9fd28785bcadc627031fa8a@f1fdb60bab285322ffaff8ee27b2b90f03a71d1f172e077941f2212e7a27588ed873faf3bd7f37a8205fda788e1f3d88@b05fe535c27f46911f74f8b7f2051c54f792fca08c7ab23c53e77ececd2cd928"
+            == "stake@02@f8910e47cf9464777c912e6390758bb39715fffcb861b184017920e4a807b42553f2f21e7f3914b81bcf58b66a72ab16d97013ae1cff807cefc977ef8cbf116258534b9e46d19528042d16ef8374404a89b184e0a4ee18c77c49e454d04eae8d@1865870f7f69162a2dfefd33fe232a9ca984c6f22d1ee3f6a5b34a8eb8c9f7319001f29d5a2eed85c1500aca19fa4189@1b4e60e6d100cdf234d3427494dac55fbac49856cadc86bcb13a01b9bb05a0d9143e86c186c948e7ae9e52427c9523102efe9019a2a9c06db02993f2e3e6756576ae5a3ec7c235d548bc79de1a6990e1120ae435cb48f7fc436c9f9098b92a0d@12b309791213aac8ad9f34f0d912261e30f9ab060859e4d515e020a98b91d82a7cd334e4b504bb93d6b75347cccd6318@b2a11555ce521e4944e09ab17549d85b487dcd26c84b5017a39e31a3670889ba"
         )
 
     def test_create_transaction_for_staking_with_relayer_and_guardian(self):
@@ -92,7 +92,7 @@ class TestValidatorsController:
             relayer=Address.new_from_bech32("drt1ssmsc9022udc8pdw7wk3hxw74jr900xg28vwpz3z60gep66fasaszky4ct"),
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqplllskzf8kp"
         assert transaction.value == 2500000000000000000000
         assert transaction.nonce == 0
@@ -108,11 +108,11 @@ class TestValidatorsController:
         )
         assert (
             transaction.signature.hex()
-            == "bf11fbba0b1d835a42358b4585ab58ed363ea8e1b7e641519ef18ca65c76ab510388df8404ba8d262c250900aea189e78770f27bd0f37fc7a3c981e1c378eb0d"
+            == "61e7beb550cc20667fe8d21bafe987496bb7aae147f242cde47270892b53bd31f3d076cfff6fd520763bf211f19b15b9df0d505b3da9b159c29a89937cb92f0e"
         )
         assert (
             transaction.data.decode()
-            == "stake@02@d3e0427c22ff9cc80ef4156f976644cfa25c54e5a69ed199132053f8cbbfddd4eb15a2f732a3c9b392169c8b1d060e0b5ab0d88b4dd7b4010fa051a17ef81bdbace5e68025965b00bf48e14a9ec8d8e2a8bcc9e62f97ddac3268f6b805f7b80e@900befe131dfdb8b40bfbf048ebb7f12b57d2d45bedd141bca848f343c7ac8c431af9faacbaaac1cf5eca9827aef9d06@b0b6349b3f693e08c433970d10efb2fe943eac4057a945146bee5fd163687f4e1800d541aa0f11bf9e4cb6552f512e126068e68eb471d18fcc477ddfe0b9b3334f34e30d8b7b2c08f914f4ae54454f75fb28922ba9fd28785bcadc627031fa8a@f1fdb60bab285322ffaff8ee27b2b90f03a71d1f172e077941f2212e7a27588ed873faf3bd7f37a8205fda788e1f3d88@b05fe535c27f46911f74f8b7f2051c54f792fca08c7ab23c53e77ececd2cd928"
+            == "stake@02@f8910e47cf9464777c912e6390758bb39715fffcb861b184017920e4a807b42553f2f21e7f3914b81bcf58b66a72ab16d97013ae1cff807cefc977ef8cbf116258534b9e46d19528042d16ef8374404a89b184e0a4ee18c77c49e454d04eae8d@1865870f7f69162a2dfefd33fe232a9ca984c6f22d1ee3f6a5b34a8eb8c9f7319001f29d5a2eed85c1500aca19fa4189@1b4e60e6d100cdf234d3427494dac55fbac49856cadc86bcb13a01b9bb05a0d9143e86c186c948e7ae9e52427c9523102efe9019a2a9c06db02993f2e3e6756576ae5a3ec7c235d548bc79de1a6990e1120ae435cb48f7fc436c9f9098b92a0d@12b309791213aac8ad9f34f0d912261e30f9ab060859e4d515e020a98b91d82a7cd334e4b504bb93d6b75347cccd6318@b2a11555ce521e4944e09ab17549d85b487dcd26c84b5017a39e31a3670889ba"
         )
 
     def test_create_transaction_for_topping_up(self):
@@ -122,7 +122,7 @@ class TestValidatorsController:
             amount=2500000000000000000000,
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqplllskzf8kp"
         assert transaction.value == 2500000000000000000000
         assert transaction.nonce == 0
@@ -135,7 +135,7 @@ class TestValidatorsController:
         assert transaction.data.decode() == "stake"
         assert (
             transaction.signature.hex()
-            == "889baf984fca3c5325c4fa3a6b7b0d550b49bb6ae34f4f81fea6ccf71373b51aeeb0c7449b89479ed2f69a50a859668017469944fbf19125ec24671bf7114800"
+            == "39064a3e23fbee980202024c98dfdaba272693cc1030f6cb3568c8ebe7a526d857b4099cf7784324b51c4ad8f0b92621cdb2c32e631040500e43a878bf989a0d"
         )
 
     def test_create_transaction_for_unstaking(self):
@@ -145,7 +145,7 @@ class TestValidatorsController:
             public_keys=[self.validator_pubkey],
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqplllskzf8kp"
         assert transaction.value == 0
         assert transaction.nonce == 7
@@ -157,11 +157,11 @@ class TestValidatorsController:
         assert transaction.relayer is None
         assert (
             transaction.signature.hex()
-            == "9588ef705a8794edb40ced8a70098cbc6c95cc652d1a61acbdc45bb7f56c1650e686ba307dfdd65efa3bb2be413701abcc65343ba0e95be2a5f996945d7cfe07"
+            == "38a6291f43d92554394ed926e7500524f7b2a29dede552dfd91b0ff0a3313168854e6aa0f7d767cb53c62c92f51f4f5ea727ceb308fd74340a900ea84f868d07"
         )
         assert (
             transaction.data.decode()
-            == "unStake@d3e0427c22ff9cc80ef4156f976644cfa25c54e5a69ed199132053f8cbbfddd4eb15a2f732a3c9b392169c8b1d060e0b5ab0d88b4dd7b4010fa051a17ef81bdbace5e68025965b00bf48e14a9ec8d8e2a8bcc9e62f97ddac3268f6b805f7b80e"
+            == "unStake@e7beaa95b3877f47348df4dd1cb578a4f7cabf7a20bfeefe5cdd263878ff132b765e04fef6f40c93512b666c47ed7719b8902f6c922c04247989b7137e837cc81a62e54712471c97a2ddab75aa9c2f58f813ed4c0fa722bde0ab718bff382208"
         )
 
     def test_create_transaction_for_unbonding(self):
@@ -171,7 +171,7 @@ class TestValidatorsController:
             public_keys=[self.validator_pubkey],
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqplllskzf8kp"
         assert transaction.value == 0
         assert transaction.nonce == 7
@@ -183,11 +183,11 @@ class TestValidatorsController:
         assert transaction.relayer is None
         assert (
             transaction.signature.hex()
-            == "3db8f4fe12e49376c2fd57df0460d92ee7cf97a375fba6b94093f3d8663a412e0131750b8fd4af10ae28806929f8f2fbf7210448fab7388e49a1cdf3a361660e"
+            == "431d6a532e5d2b2a91de662aad151db0f96fac5425a225f0393d3f409bd1e624ef5cf5e79fce844d9a93a3d836a66088a66d032e16380f18864b4fc19ef05503"
         )
         assert (
             transaction.data.decode()
-            == "unBond@d3e0427c22ff9cc80ef4156f976644cfa25c54e5a69ed199132053f8cbbfddd4eb15a2f732a3c9b392169c8b1d060e0b5ab0d88b4dd7b4010fa051a17ef81bdbace5e68025965b00bf48e14a9ec8d8e2a8bcc9e62f97ddac3268f6b805f7b80e"
+            == "unBond@e7beaa95b3877f47348df4dd1cb578a4f7cabf7a20bfeefe5cdd263878ff132b765e04fef6f40c93512b666c47ed7719b8902f6c922c04247989b7137e837cc81a62e54712471c97a2ddab75aa9c2f58f813ed4c0fa722bde0ab718bff382208"
         )
 
     def test_create_transaction_for_unjailing(self):
@@ -198,7 +198,7 @@ class TestValidatorsController:
             amount=2500000000000000000000,
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqplllskzf8kp"
         assert transaction.value == 2500000000000000000000
         assert transaction.nonce == 7
@@ -210,11 +210,11 @@ class TestValidatorsController:
         assert transaction.relayer is None
         assert (
             transaction.signature.hex()
-            == "d786e022eb8c219f3653898f6a397b84223a534b7128cc0b40b2ea89737ffec824f2a09e12e6ad6f229e721c3badd18247dea36800d8b209a1663a4629acae08"
+            == "15458f5db3360251a966286fba7160ec17d88d7fc4f6fe0f9deda658e969f9ba49fef969526157e8750846aa2876b07d3b507ad6e9a0c9ab7655aa22fd413a0d"
         )
         assert (
             transaction.data.decode()
-            == "unJail@d3e0427c22ff9cc80ef4156f976644cfa25c54e5a69ed199132053f8cbbfddd4eb15a2f732a3c9b392169c8b1d060e0b5ab0d88b4dd7b4010fa051a17ef81bdbace5e68025965b00bf48e14a9ec8d8e2a8bcc9e62f97ddac3268f6b805f7b80e"
+            == "unJail@e7beaa95b3877f47348df4dd1cb578a4f7cabf7a20bfeefe5cdd263878ff132b765e04fef6f40c93512b666c47ed7719b8902f6c922c04247989b7137e837cc81a62e54712471c97a2ddab75aa9c2f58f813ed4c0fa722bde0ab718bff382208"
         )
 
     def test_create_transaction_for_changing_rewards_address(self):
@@ -224,7 +224,7 @@ class TestValidatorsController:
             rewards_address=self.reward_address,
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqplllskzf8kp"
         assert transaction.value == 0
         assert transaction.nonce == 7
@@ -236,11 +236,11 @@ class TestValidatorsController:
         assert transaction.relayer is None
         assert (
             transaction.signature.hex()
-            == "8fc9186263dd411c6e2d7096dbef027cfd40246590bc1e78c8a12f896a32b28554857138cc67673ee8812f86b345bef270bb69605fb4470aeb3aa7d997561301"
+            == "5d82d90873806855a965bd9b61e11854ef2e8323b17539f3f42a071a44ebdb7b2e34c57d261a02c9fa78feb5ba21bf90dd7bede91a72e0f7a7c8fd38e08f1603"
         )
         assert (
             transaction.data.decode()
-            == "changeRewardAddress@b05fe535c27f46911f74f8b7f2051c54f792fca08c7ab23c53e77ececd2cd928"
+            == "changeRewardAddress@b2a11555ce521e4944e09ab17549d85b487dcd26c84b5017a39e31a3670889ba"
         )
 
     def test_create_transaction_for_claiming(self):
@@ -249,7 +249,7 @@ class TestValidatorsController:
             nonce=7,
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqplllskzf8kp"
         assert transaction.value == 0
         assert transaction.nonce == 7
@@ -262,7 +262,7 @@ class TestValidatorsController:
         assert transaction.data.decode() == "claim"
         assert (
             transaction.signature.hex()
-            == "c45746452968a46323753ae083a7f5d3bba40baeedfe3e765ea7976681dc87f0588fe382418f2d946dcbde9d09727e5f2fe6120dd07edfa9dd579eeba574760b"
+            == "7dbc547aab6fbdc4c0f7620c06cf44d2a00d6012e2a1db2e4edec1fa0f523679571d78eb957b4a9b68853af06c5121df26588a9046e11c00a846d0f1e93a2c07"
         )
 
     def test_create_transaction_for_unstaking_nodes(self):
@@ -272,7 +272,7 @@ class TestValidatorsController:
             public_keys=[self.validator_pubkey],
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqplllskzf8kp"
         assert transaction.value == 0
         assert transaction.nonce == 7
@@ -284,11 +284,11 @@ class TestValidatorsController:
         assert transaction.relayer is None
         assert (
             transaction.signature.hex()
-            == "7d766ac56974eb46b1dc6b74acac90e14f728e4a200c6311a4d795c7386f58fc81f242ff4a2fe9f2d30cd6785f66166fea359fbb7f17e237f655f76471598c09"
+            == "a27e60730ce7d1199fe7236a3db3c75d238f43d364ad4cd5de9fa1607004c7aa470637f85be1fd09bf43edd78d869ba4f2f121740509b8e93f329f7c0cb2cf07"
         )
         assert (
             transaction.data.decode()
-            == "unStakeNodes@d3e0427c22ff9cc80ef4156f976644cfa25c54e5a69ed199132053f8cbbfddd4eb15a2f732a3c9b392169c8b1d060e0b5ab0d88b4dd7b4010fa051a17ef81bdbace5e68025965b00bf48e14a9ec8d8e2a8bcc9e62f97ddac3268f6b805f7b80e"
+            == "unStakeNodes@e7beaa95b3877f47348df4dd1cb578a4f7cabf7a20bfeefe5cdd263878ff132b765e04fef6f40c93512b666c47ed7719b8902f6c922c04247989b7137e837cc81a62e54712471c97a2ddab75aa9c2f58f813ed4c0fa722bde0ab718bff382208"
         )
 
     def test_create_transaction_for_unstaking_tokens(self):
@@ -298,7 +298,7 @@ class TestValidatorsController:
             amount=11000000000000000000,
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqplllskzf8kp"
         assert transaction.value == 0
         assert transaction.nonce == 7
@@ -310,7 +310,7 @@ class TestValidatorsController:
         assert transaction.relayer is None
         assert (
             transaction.signature.hex()
-            == "319d4088e12f18b181374c32aa8a4dcd21d6d7e3ee74316943af252787fa9c25f29336a83093398dec2af040655e6deb2b87851ff1fede3cfe7b7ca5089a6707"
+            == "d0aac76e130a235cfc78028c11ba81c71840d54028cdd6bfa44272e2bc3f8fe65e4404489a50cdf37bc4b04a150cc8586d096224a829ef15a97df04b67b33f09"
         )
         assert transaction.data.decode() == "unStakeTokens@98a7d9b8314c0000"
 
@@ -321,7 +321,7 @@ class TestValidatorsController:
             public_keys=[self.validator_pubkey],
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqplllskzf8kp"
         assert transaction.value == 0
         assert transaction.nonce == 7
@@ -333,11 +333,11 @@ class TestValidatorsController:
         assert transaction.relayer is None
         assert (
             transaction.signature.hex()
-            == "c8844152d1dc97799eca138fe00c41b2228dd6e6f3826b768843d2b3ba12e982c8311ccffc0860cd256efe7ce1f69b701fa1f744fb7f078fa1ff642014ea620a"
+            == "d0bef0ca2e18ef2eb5333733be459f65c4b1726372c11f0ccfab18767d68fcf5af4a440d03641729c58ed4a69e17a8921ed38567fe81464f0c1f98f8587b1e00"
         )
         assert (
             transaction.data.decode()
-            == "unBondNodes@d3e0427c22ff9cc80ef4156f976644cfa25c54e5a69ed199132053f8cbbfddd4eb15a2f732a3c9b392169c8b1d060e0b5ab0d88b4dd7b4010fa051a17ef81bdbace5e68025965b00bf48e14a9ec8d8e2a8bcc9e62f97ddac3268f6b805f7b80e"
+            == "unBondNodes@e7beaa95b3877f47348df4dd1cb578a4f7cabf7a20bfeefe5cdd263878ff132b765e04fef6f40c93512b666c47ed7719b8902f6c922c04247989b7137e837cc81a62e54712471c97a2ddab75aa9c2f58f813ed4c0fa722bde0ab718bff382208"
         )
 
     def test_create_transaction_for_unbonding_tokens(self):
@@ -347,7 +347,7 @@ class TestValidatorsController:
             amount=20000000000000000000,
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqplllskzf8kp"
         assert transaction.value == 0
         assert transaction.nonce == 7
@@ -359,7 +359,7 @@ class TestValidatorsController:
         assert transaction.relayer is None
         assert (
             transaction.signature.hex()
-            == "801694418b144d99aad6e27bcb387ecbc5858d38a44807d3b26329c6341bfdb34f43edda47038e69f61f5a3a9a956cdf8aedd6c3e8424b552124215809d19403"
+            == "52b910c987349bda999573067563f43ac323de241e20a228a8dcc129d17f5604d87bbb30fb2ef4233dd64e2c54d76e22d1c209cad4af92e40b73c29d0b51f002"
         )
         assert transaction.data.decode() == "unBondTokens@01158e460913d00000"
 
@@ -369,7 +369,7 @@ class TestValidatorsController:
             nonce=7,
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqplllskzf8kp"
         assert transaction.value == 0
         assert transaction.nonce == 7
@@ -381,7 +381,7 @@ class TestValidatorsController:
         assert transaction.relayer is None
         assert (
             transaction.signature.hex()
-            == "ceac96dad6b9cd2ebb873a092b896e1568943ea4e26a1d1efed9ce9909713ff291e9b041d7e9a3274cf1c22a8dae85e2010d9a3b62de003995e982587ad68d0e"
+            == "f2791ca4edb918807cacc08c05e7103fd936b2402b3d0c2cf7f219946b8067ebce5a685908a2cac466f1bccb73b4ec8470b421119826584d41684a4971b2eb01"
         )
         assert transaction.data.decode() == "cleanRegisteredData"
 
@@ -392,7 +392,7 @@ class TestValidatorsController:
             public_keys=[self.validator_pubkey],
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqplllskzf8kp"
         assert transaction.value == 0
         assert transaction.nonce == 7
@@ -404,9 +404,71 @@ class TestValidatorsController:
         assert transaction.relayer is None
         assert (
             transaction.signature.hex()
-            == "749b567ee93fabbfc667c057152df18e4157fd9bd2baac861d0da0032ce77dee55b9c14cfd144596542dec5ce5343aeede2c3ee51d8ff933001646bcbcb3390b"
+            == "e4420a51bf3ac6762943d15da9a6e14961d53ca96c61b1b1ab333d1298ea0f5eb0c7f50f832d3d34076f91030155d73f856bfd95c5ff3f35bd6962f31a4cc60b"
         )
         assert (
             transaction.data.decode()
-            == "reStakeUnStakedNodes@d3e0427c22ff9cc80ef4156f976644cfa25c54e5a69ed199132053f8cbbfddd4eb15a2f732a3c9b392169c8b1d060e0b5ab0d88b4dd7b4010fa051a17ef81bdbace5e68025965b00bf48e14a9ec8d8e2a8bcc9e62f97ddac3268f6b805f7b80e"
+            == "reStakeUnStakedNodes@e7beaa95b3877f47348df4dd1cb578a4f7cabf7a20bfeefe5cdd263878ff132b765e04fef6f40c93512b666c47ed7719b8902f6c922c04247989b7137e837cc81a62e54712471c97a2ddab75aa9c2f58f813ed4c0fa722bde0ab718bff382208"
+        )
+
+    def test_create_new_delegation_contract_from_validator(self):
+        transaction = self.controller.create_transaction_for_new_delegation_contract_from_validator_data(
+            sender=self.alice,
+            nonce=7,
+            max_cap=0,
+            fee=3745,
+        )
+
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqylllsz8he8y"
+        assert transaction.value == 0
+        assert transaction.nonce == 7
+        assert transaction.gas_limit == 51_107_000
+        assert transaction.chain_id == "localnet"
+        assert transaction.version == 2
+        assert transaction.options == 0
+        assert transaction.data.decode() == "makeNewContractFromValidatorData@@0ea1"
+
+    def test_create_transaction_for_merging_validator_to_delegation(self):
+        delegation_contract = Address.new_from_bech32("drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqtlllllsjnaptx")
+
+        transaction = self.controller.create_transaction_for_merging_validator_to_delegation_with_whitelist(
+            sender=self.alice,
+            nonce=7,
+            delegation_contract=delegation_contract,
+        )
+
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqylllsz8he8y"
+        assert transaction.value == 0
+        assert transaction.nonce == 7
+        assert transaction.gas_limit == 50_206_000
+        assert transaction.chain_id == "localnet"
+        assert transaction.version == 2
+        assert transaction.options == 0
+        assert (
+            transaction.data.decode()
+            == "mergeValidatorToDelegationWithWhitelist@000000000000000000010000000000000000000000000000000000002fffffff"
+        )
+
+    def test_create_transaction_for_merging_validator_to_delegation_same_owner(self):
+        delegation_contract = Address.new_from_bech32("drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqtlllllsjnaptx")
+
+        transaction = self.controller.create_transaction_for_merging_validator_to_delegation_same_owner(
+            sender=self.alice,
+            nonce=7,
+            delegation_contract=delegation_contract,
+        )
+
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqylllsz8he8y"
+        assert transaction.value == 0
+        assert transaction.nonce == 7
+        assert transaction.gas_limit == 50_200_000
+        assert transaction.chain_id == "localnet"
+        assert transaction.version == 2
+        assert transaction.options == 0
+        assert (
+            transaction.data.decode()
+            == "mergeValidatorToDelegationSameOwner@000000000000000000010000000000000000000000000000000000002fffffff"
         )

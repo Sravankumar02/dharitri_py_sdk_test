@@ -39,8 +39,9 @@ class DelegationController(BaseController):
         network_provider: INetworkProvider,
         gas_limit_estimator: Optional[IGasLimitEstimator] = None,
     ) -> None:
+        super().__init__(gas_limit_estimator=gas_limit_estimator)
         self.network_provider = network_provider
-        self.factory = DelegationTransactionsFactory(TransactionsFactoryConfig(chain_id), gas_limit_estimator)
+        self.factory = DelegationTransactionsFactory(config=TransactionsFactoryConfig(chain_id))
         self.parser = DelegationTransactionsOutcomeParser()
 
     def create_transaction_for_new_delegation_contract(
@@ -67,8 +68,8 @@ class DelegationController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -108,8 +109,8 @@ class DelegationController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -136,8 +137,8 @@ class DelegationController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -164,8 +165,8 @@ class DelegationController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -192,8 +193,8 @@ class DelegationController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -220,8 +221,8 @@ class DelegationController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -250,8 +251,8 @@ class DelegationController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -278,8 +279,8 @@ class DelegationController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -306,8 +307,8 @@ class DelegationController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -331,8 +332,8 @@ class DelegationController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -356,8 +357,8 @@ class DelegationController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -381,8 +382,8 @@ class DelegationController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -406,8 +407,8 @@ class DelegationController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -438,8 +439,8 @@ class DelegationController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -466,8 +467,8 @@ class DelegationController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -498,8 +499,8 @@ class DelegationController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -530,8 +531,8 @@ class DelegationController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -565,8 +566,8 @@ class DelegationController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -597,8 +598,34 @@ class DelegationController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
+        transaction.signature = sender.sign_transaction(transaction)
+
+        return transaction
+
+    def create_transaction_for_whitelist_for_merge(
+        self,
+        sender: IAccount,
+        nonce: int,
+        delegation_contract: Address,
+        validator_operator: Address,
+        guardian: Optional[Address] = None,
+        relayer: Optional[Address] = None,
+        gas_limit: Optional[int] = None,
+        gas_price: Optional[int] = None,
+    ) -> Transaction:
+        transaction = self.factory.create_transaction_for_whitelist_for_merge(
+            sender=sender.address, delegation_contract=delegation_contract, validator_operator=validator_operator
+        )
+
+        transaction.guardian = guardian
+        transaction.relayer = relayer
+        transaction.nonce = nonce
+
+        self._set_version_and_options_for_hash_signing(sender, transaction)
+        self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction

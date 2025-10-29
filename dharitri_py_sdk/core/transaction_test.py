@@ -31,8 +31,8 @@ class TestTransaction:
     transaction_computer = TransactionComputer()
 
     def test_serialize_for_signing(self):
-        sender = Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh")
-        receiver = Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2")
+        sender = Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf")
+        receiver = Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c")
 
         transaction = Transaction(
             nonce=89,
@@ -47,7 +47,7 @@ class TestTransaction:
         serialized_tx = self.transaction_computer.compute_bytes_for_signing(transaction)
         assert (
             serialized_tx.decode()
-            == r"""{"nonce":89,"value":"0","receiver":"drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2","sender":"drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh","gasPrice":1000000000,"gasLimit":50000,"chainID":"D","version":1}"""
+            == r"""{"nonce":89,"value":"0","receiver":"drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c","sender":"drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf","gasPrice":1000000000,"gasLimit":50000,"chainID":"D","version":1}"""
         )
 
         transaction = Transaction(
@@ -64,7 +64,7 @@ class TestTransaction:
         serialized_tx = self.transaction_computer.compute_bytes_for_signing(transaction)
         assert (
             serialized_tx.decode()
-            == r"""{"nonce":90,"value":"1000000000000000000","receiver":"drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2","sender":"drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh","gasPrice":1000000000,"gasLimit":70000,"data":"aGVsbG8=","chainID":"D","version":1}"""
+            == r"""{"nonce":90,"value":"1000000000000000000","receiver":"drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c","sender":"drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf","gasPrice":1000000000,"gasLimit":70000,"data":"aGVsbG8=","chainID":"D","version":1}"""
         )
 
     def test_with_usernames(self):
@@ -84,13 +84,13 @@ class TestTransaction:
         )
         assert (
             transaction.signature.hex()
-            == "6e217efb1106be3fbc37065b16491112cb7f1adc78b8860f6d587733776afdce0c9ce7f36f102c5b1fe14a2a4a7844812fa0edb98451deecc8b0225f5250340c"
+            == "5ac790366634a107930f4e47ef0e67b5e8f61503441bd38bc7cd12556f149b8edb43c08eedb7505e32e473f549ca598462388a11cecc917dd638968cd6178c06"
         )
 
     def test_compute_transaction_hash(self):
         transaction = Transaction(
-            sender=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
-            receiver=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
+            sender=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
+            receiver=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
             gas_limit=100000,
             chain_id="D",
             nonce=17243,
@@ -98,16 +98,16 @@ class TestTransaction:
             data=b"testtx",
             version=2,
             signature=bytes.fromhex(
-                "2dd7a28b2de2e85e2e07f1b5811bdffa3e1e5cbed6449fe13534fa42464a9101b31f37197545eb145f5b31b3d001b83a1dc1318b2ac3b3f9722f5ff154191e00"
+                "eaa9e4dfbd21695d9511e9754bde13e90c5cfb21748a339a79be11f744c71872e9fe8e73c6035c413f5f08eef09e5458e9ea6fc315ff4da0ab6d000b450b2a07"
             ),
         )
         tx_hash = self.transaction_computer.compute_transaction_hash(transaction)
-        assert tx_hash.hex() == "f35793b8732c959bbce7185cfafaa4b39380ac94a98a74e3c74054598f7bca11"
+        assert tx_hash.hex() == "169b76b752b220a76a93aeebc462a1192db1dc2ec9d17e6b4d7b0dcc91792f03"
 
     def test_compute_transaction_hash_with_usernames(self):
         transaction = Transaction(
-            sender=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
-            receiver=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
+            sender=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
+            receiver=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
             gas_limit=100000,
             chain_id="D",
             nonce=17244,
@@ -117,16 +117,16 @@ class TestTransaction:
             sender_username="alice",
             receiver_username="alice",
             signature=bytes.fromhex(
-                "3a5c4ee64f1453cef3cebdd3718dd185b81b9343612453da424e31ffc5347cf7e2dd93ce14da887a0a5689d607f887368f665e5c1e70a591553cfab79bec4006"
+                "807bcd7de5553ea6dfc57c0510e84d46813c5963d90fec50991c500091408fcf6216dca48dae16a579a1611ed8b2834bae8bd0027dc17eb557963f7151b82c07"
             ),
         )
         tx_hash = self.transaction_computer.compute_transaction_hash(transaction)
-        assert tx_hash.hex() == "bdf6b099a2bafdf05468807936513a2cba3979a4a10b6beab151f27cc3079bd1"
+        assert tx_hash.hex() == "41b5acf7ebaf4a9165a64206b6ebc02021b3adda55ffb2a2698aac2e7004dc29"
 
     def test_compute_transaction_fee_insufficient(self):
         transaction = Transaction(
-            sender=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
-            receiver=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
+            sender=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
+            receiver=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
             gas_limit=50000,
             chain_id="D",
             data=b"toolittlegaslimit",
@@ -137,8 +137,8 @@ class TestTransaction:
 
     def test_compute_transaction_fee(self):
         transaction = Transaction(
-            sender=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
-            receiver=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
+            sender=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
+            receiver=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
             gas_price=500,
             gas_limit=20,
             chain_id="D",
@@ -149,8 +149,8 @@ class TestTransaction:
 
     def test_compute_transaction_fee_with_data_field(self):
         transaction = Transaction(
-            sender=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
-            receiver=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
+            sender=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
+            receiver=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
             gas_price=500,
             gas_limit=12010,
             chain_id="D",
@@ -161,12 +161,12 @@ class TestTransaction:
         assert computed_gas == 6005000
 
     def test_compute_transaction_with_guardian_fields(self):
-        sender_secret_key_hex = "2bbcdae7e193924fa0d301e7a12c7defc92a93bc5e587cc968f04fcb86022e1c"
+        sender_secret_key_hex = "3964a58b0debd802f67239c30aa2b3a75fff1842c203587cb590d03d20e32415"
         sender_secret_key = UserSecretKey(bytes.fromhex(sender_secret_key_hex))
 
         transaction = Transaction(
             sender=Address.new_from_bech32("drt1fp4zaxvyc8jh99vauwns99kvs9tn0k6cwrr0zpyz2jvyurcepuhs57mu7a"),
-            receiver=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
+            receiver=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
             gas_limit=139000,
             gas_price=1000000000,
             chain_id="D",
@@ -184,20 +184,20 @@ class TestTransaction:
         transaction.signature = sender_secret_key.sign(self.transaction_computer.compute_bytes_for_signing(transaction))
         assert (
             transaction.signature.hex()
-            == "4511c3f0f7220932fdfcb4b68b94b5899d149648dd3d3a0051f3be745d95b911cc6845ae9752f722b624dad39f184c65c966ec00bc6cd49acfc28575984d2b00"
+            == "154829bb23bdf56a1724dc16bf4b2c72e2c978ecc20b565c8d52b567c16645215afd325e103e9a446fc5155025e330b4b21399129cef0f1b02a6489be5ec1f00"
         )
 
         tx_hash = self.transaction_computer.compute_transaction_hash(transaction)
-        assert tx_hash.hex() == "f9a56644a7e070fe60be59fea7419da6d83aef0dfea5b6f3a94005b80660f84a"
+        assert tx_hash.hex() == "5190650578e4fdb0f34c4c3650077ec4d09363f086253ce9c72b9ba2fb9ffc3e"
 
-    # this test was done to mimic the one in drt-chain-go
+    # this test was done to mimic the one in drt-go-chain
     def test_compute_transaction_with_dummy_guardian(self):
-        alice_private_key_hex = "2bbcdae7e193924fa0d301e7a12c7defc92a93bc5e587cc968f04fcb86022e1c"
+        alice_private_key_hex = "413f42575f7f26fad3317a778771212fdb80245850981e48b58a4f25e344e8f9"
         alice_secret_key = UserSecretKey(bytes.fromhex(alice_private_key_hex))
 
         transaction = Transaction(
-            sender=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
-            receiver=Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"),
+            sender=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
+            receiver=Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
             gas_limit=150000,
             chain_id="local-testnet",
             gas_price=1000000000,
@@ -213,23 +213,23 @@ class TestTransaction:
         transaction.signature = alice_secret_key.sign(self.transaction_computer.compute_bytes_for_signing(transaction))
         assert (
             transaction.signature.hex()
-            == "14bbdaf3ece1533aefe874147266fd8f6d7281a571a12d133c7dfb3cda655a8618c1092bc22c4496eaf867c3af3686fc4ae7327485a13c12769fcd589dbc2a0d"
+            == "ac14f089dd19df4c3641bfe7796bb23717fc39eacf18eb915e514fd7fb31ba175c60b93a45d230b53c71b9763edb748ad3ab45972f7d09c69c212c258492c307"
         )
 
         proto_serializer = ProtoSerializer()
         serialized = proto_serializer.serialize_transaction(transaction)
         assert (
             serialized.hex()
-            == "085c120e00018ee90ff6181f3761632000001a203ddf173c9e02c0e58fb1e552f473d98da6a4c3f23c7e034c912ee98a8dddce172a20391f932707a9dfa86d3bcbb3d5d0cc9f25ad0e680fe499f107d844b7e6ea71d5388094ebdc0340f093094a0f746573742064617461206669656c64520d6c6f63616c2d746573746e65745802624014bbdaf3ece1533aefe874147266fd8f6d7281a571a12d133c7dfb3cda655a8618c1092bc22c4496eaf867c3af3686fc4ae7327485a13c12769fcd589dbc2a0d6802722032a3f14cf53c4d0543954f6cf1bda0369d13e661dec095107627dc0f6d33612f7a4000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            == "085c120e00018ee90ff6181f3761632000001a208049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f82a200139472eff6886771a982f3083da5d421f24c29181e63888228dc81ca60d69e1388094ebdc0340f093094a0f746573742064617461206669656c64520d6c6f63616c2d746573746e657458026240ac14f089dd19df4c3641bfe7796bb23717fc39eacf18eb915e514fd7fb31ba175c60b93a45d230b53c71b9763edb748ad3ab45972f7d09c69c212c258492c3076802722032a3f14cf53c4d0543954f6cf1bda0369d13e661dec095107627dc0f6d33612f7a4000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
         )
 
         tx_hash = self.transaction_computer.compute_transaction_hash(transaction)
-        assert tx_hash.hex() == "5b1a94420f59e687200044233abbddb3056e6921deb82cec706ecbd03003fb93"
+        assert tx_hash.hex() == "a0427c60598931b7b3b12f7e546f5f73452a48f0136c3d1c51969a36733dbc3d"
 
     def test_tx_computer_has_options_set(self):
         tx = Transaction(
-            sender=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
-            receiver=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
+            sender=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
+            receiver=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
             gas_limit=50000,
             chain_id="D",
             options=3,
@@ -240,8 +240,8 @@ class TestTransaction:
 
     def test_tx_computer_apply_guardian(self):
         tx = Transaction(
-            sender=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
-            receiver=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
+            sender=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
+            receiver=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
             gas_limit=200000,
             chain_id="D",
             version=1,
@@ -250,20 +250,20 @@ class TestTransaction:
 
         self.transaction_computer.apply_guardian(
             transaction=tx,
-            guardian=Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"),
+            guardian=Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
         )
 
         assert tx.version == 2
         assert tx.options == 3
-        assert str(tx.guardian) == "drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"
+        assert str(tx.guardian) == "drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"
 
     def test_sign_transaction_by_hash(self):
         parent = Path(__file__).parent.parent
         pem = UserPEM.from_file(parent / "testutils" / "testwallets" / "alice.pem")
 
         tx = Transaction(
-            sender=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
-            receiver=Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"),
+            sender=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
+            receiver=Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
             value=0,
             gas_limit=50000,
             version=2,
@@ -286,13 +286,13 @@ class TestTransaction:
 
         assert (
             tx.signature.hex()
-            == "17e608f5ae9897b500046cf896cc5ea3de5208e8b42781733a9ae5a0f1ef11a5a0710b30b9df2bcc550fd83a379ffbb5dab20a6d803c755ca969a294f563ac08"
+            == "97500cef697c580695ddd2f589458bf1041da3a5a8e9217d497a84ede171d99236c71cdabb4b2abc82322d94a757338ca320a3016c7bb443ac6284cc4af9390f"
         )
 
     def test_apply_guardian_with_hash_signing(self):
         tx = Transaction(
-            sender=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
-            receiver=Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"),
+            sender=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
+            receiver=Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
             value=0,
             gas_limit=50000,
             version=1,
@@ -388,8 +388,8 @@ class TestTransaction:
         transaction = Transaction(
             nonce=90,
             value=123456789000000000000000000000,
-            sender=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
-            receiver=Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"),
+            sender=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
+            receiver=Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
             sender_username="alice",
             receiver_username="bob",
             gas_price=1000000000,
@@ -404,8 +404,8 @@ class TestTransaction:
         assert transaction == restored_tx
 
     def test_serialize_tx_with_relayed_v3(self):
-        sender = Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh")
-        relayer = Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2")
+        sender = Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf")
+        relayer = Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c")
 
         transaction = Transaction(
             nonce=89,
@@ -420,12 +420,12 @@ class TestTransaction:
         serialized_tx = self.transaction_computer.compute_bytes_for_signing(transaction)
         assert (
             serialized_tx.decode()
-            == r"""{"nonce":89,"value":"0","receiver":"drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh","sender":"drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh","gasPrice":1000000000,"gasLimit":50000,"chainID":"D","version":2,"relayer":"drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"}"""
+            == r"""{"nonce":89,"value":"0","receiver":"drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf","sender":"drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf","gasPrice":1000000000,"gasLimit":50000,"chainID":"D","version":2,"relayer":"drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"}"""
         )
 
     def test_relayed_v3(self):
-        alice = Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh")
-        bob = Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2")
+        alice = Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf")
+        bob = Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c")
         carol = Address(self.carol.public_key.get_bytes())
 
         transaction = Transaction(
@@ -444,7 +444,3 @@ class TestTransaction:
 
         transaction.relayer = carol
         assert self.transaction_computer.is_relayed_v3_transaction(transaction)
-
-
-x = TestTransaction()
-x.test_compute_bytes_for_verifying_signature()

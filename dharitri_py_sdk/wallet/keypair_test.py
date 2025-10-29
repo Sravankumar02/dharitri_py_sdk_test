@@ -6,7 +6,7 @@ from dharitri_py_sdk.wallet.user_keys import UserSecretKey
 
 
 def test_create_keypair():
-    buffer_hex = "2bbcdae7e193924fa0d301e7a12c7defc92a93bc5e587cc968f04fcb86022e1c"
+    buffer_hex = "413f42575f7f26fad3317a778771212fdb80245850981e48b58a4f25e344e8f9"
     buffer = bytes.fromhex(buffer_hex)
 
     user_secret_key = UserSecretKey(buffer)
@@ -35,8 +35,8 @@ def test_sign_and_verify_transaction():
     tx = Transaction(
         nonce=89,
         value=0,
-        receiver=Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"),
-        sender=Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"),
+        receiver=Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
+        sender=Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
         data=None,
         gas_price=1000000000,
         gas_limit=50000,
@@ -45,7 +45,7 @@ def test_sign_and_verify_transaction():
         options=0,
     )
 
-    buffer_hex = "2bbcdae7e193924fa0d301e7a12c7defc92a93bc5e587cc968f04fcb86022e1c"
+    buffer_hex = "413f42575f7f26fad3317a778771212fdb80245850981e48b58a4f25e344e8f9"
     buffer = bytes.fromhex(buffer_hex)
     keypair = KeyPair.new_from_bytes(buffer)
 
@@ -55,6 +55,6 @@ def test_sign_and_verify_transaction():
     tx.signature = keypair.sign(serialized_tx)
     assert (
         tx.signature.hex()
-        == "bb930c96ae02700d70fd834da7f69bc01a16b4086374c6af6208ef5500996dccdc900e423248364d1a6451ec16b2728da662e0b0260a86caa9d0a9b61c6c2209"
+        == "6d308fe0924019c84d0c5894507435d4eedea1d3f992df5506daed1f2a2ec27e0c8176067c7a71b1680b3fe661c3b726db58fab4c9be52e169d7d4e78fd42a02"
     )
     assert keypair.verify(serialized_tx, tx.signature)

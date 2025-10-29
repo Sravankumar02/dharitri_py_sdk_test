@@ -9,7 +9,9 @@ from dharitri_py_sdk.abi.string_value import StringValue
 from dharitri_py_sdk.accounts.account import Account
 from dharitri_py_sdk.core.address import Address
 from dharitri_py_sdk.core.constants import CONTRACT_DEPLOY_ADDRESS_HEX
+from dharitri_py_sdk.gas_estimator.gas_limit_estimator import GasLimitEstimator
 from dharitri_py_sdk.network_providers.api_network_provider import ApiNetworkProvider
+from dharitri_py_sdk.network_providers.proxy_network_provider import ProxyNetworkProvider
 from dharitri_py_sdk.smart_contracts.smart_contract_controller import (
     SmartContractController,
 )
@@ -39,10 +41,55 @@ class TestSmartContractQueriesController:
             arguments=[BigUIntValue(1)],
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.receiver.to_bech32() == Address.new_from_hex(CONTRACT_DEPLOY_ADDRESS_HEX).to_bech32()
         assert transaction.data == f"{self.bytecode.hex()}@0500@0504@01".encode()
         assert transaction.gas_limit == gas_limit
+        assert transaction.value == 0
+
+    @pytest.mark.networkInteraction
+    def test_create_transaction_for_deploy_using_gas_estimator(self):
+        proxy = ProxyNetworkProvider("https://devnet-gateway.dharitri.org")
+        gas = GasLimitEstimator(proxy)
+        controller = SmartContractController(
+            chain_id="D", network_provider=proxy, abi=self.abi, gas_limit_estimator=gas
+        )
+
+        self.alice.nonce = proxy.get_account(self.alice.address).nonce
+        transaction = controller.create_transaction_for_deploy(
+            sender=self.alice,
+            nonce=self.alice.get_nonce_then_increment(),
+            bytecode=self.bytecode,
+            arguments=[BigUIntValue(1)],
+        )
+
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == Address.new_from_hex(CONTRACT_DEPLOY_ADDRESS_HEX).to_bech32()
+        assert transaction.data == f"{self.bytecode.hex()}@0500@0504@01".encode()
+        assert transaction.gas_limit
+        assert transaction.value == 0
+
+    @pytest.mark.networkInteraction
+    def test_create_transaction_for_deploy_with_gas_estimator_and_gas_limit(self):
+        proxy = ProxyNetworkProvider("https://devnet-gateway.dharitri.org")
+        gas = GasLimitEstimator(proxy)
+        controller = SmartContractController(
+            chain_id="D", network_provider=proxy, abi=self.abi, gas_limit_estimator=gas
+        )
+
+        self.alice.nonce = proxy.get_account(self.alice.address).nonce
+        transaction = controller.create_transaction_for_deploy(
+            sender=self.alice,
+            nonce=self.alice.get_nonce_then_increment(),
+            bytecode=self.bytecode,
+            arguments=[BigUIntValue(1)],
+            gas_limit=7_000_000,
+        )
+
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == Address.new_from_hex(CONTRACT_DEPLOY_ADDRESS_HEX).to_bech32()
+        assert transaction.data == f"{self.bytecode.hex()}@0500@0504@01".encode()
+        assert transaction.gas_limit == 7_000_000
         assert transaction.value == 0
 
     def test_create_transaction_for_execute(self):
@@ -60,7 +107,7 @@ class TestSmartContractQueriesController:
             arguments=[U32Value(7)],
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqpgqhy6nl6zq07rnzry8uyh6rtyq0uzgtk3e69fq4h4xut"
         assert transaction.gas_limit == gas_limit
         assert transaction.data.decode() == "add@07"
@@ -80,7 +127,7 @@ class TestSmartContractQueriesController:
             arguments=[BigUIntValue(0)],
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqpgqhy6nl6zq07rnzry8uyh6rtyq0uzgtk3e69fq4h4xut"
         assert transaction.data == f"upgradeContract@{self.bytecode.hex()}@0504@".encode()
         assert transaction.gas_limit == gas_limit

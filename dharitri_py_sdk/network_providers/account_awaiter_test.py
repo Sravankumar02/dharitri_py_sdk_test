@@ -28,7 +28,7 @@ class TestAccountAwaiter:
     )
 
     def test_await_on_balance_increase(self):
-        alice = Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh")
+        alice = Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf")
         # alice account is created with 1000 REWA
         initial_balance = self.provider.get_account(alice).balance
 
@@ -53,7 +53,7 @@ class TestAccountAwaiter:
     def test_await_for_account_balance_increase_on_network(self):
         alice = load_wallets()["alice"]
         alice_address = Address.new_from_bech32(alice.label)
-        frank = Address.new_from_bech32("drt10xpcr2cqud9vm6q4axfv64ek63k7xywfcy8zyjp7pvx3kr4cnqlqv3scy7")
+        frank = Address.new_from_bech32("drt1kdl46yctawygtwg2k462307dmz2v55c605737dp3zkxh04sct7asacg58j")
 
         api = ApiNetworkProvider("https://devnet-api.dharitri.org")
         watcher = AccountAwaiter(fetcher=api)
@@ -84,7 +84,7 @@ class TestAccountAwaiter:
     def test_ensure_error_if_timeout(self):
         alice = load_wallets()["alice"]
         alice_address = Address.new_from_bech32(alice.label)
-        bob = Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2")
+        bob = Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c")
 
         api = ApiNetworkProvider("https://devnet-api.dharitri.org")
         watcher = AccountAwaiter(

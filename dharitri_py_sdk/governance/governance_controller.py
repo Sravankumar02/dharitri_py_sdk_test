@@ -57,7 +57,8 @@ class GovernanceController(BaseController):
         address_hrp: Optional[str] = None,
         gas_limit_estimator: Optional[IGasLimitEstimator] = None,
     ) -> None:
-        self._factory = GovernanceTransactionsFactory(TransactionsFactoryConfig(chain_id), gas_limit_estimator)
+        super().__init__(gas_limit_estimator=gas_limit_estimator)
+        self._factory = GovernanceTransactionsFactory(config=TransactionsFactoryConfig(chain_id))
         self._network_provider = network_provider
         self._governance_contract = Address.new_from_hex(GOVERNANCE_SMART_CONTRACT_ADDRESS_HEX)
         self._sc_controller = SmartContractController(chain_id, network_provider)
@@ -90,8 +91,8 @@ class GovernanceController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -122,8 +123,8 @@ class GovernanceController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -153,8 +154,8 @@ class GovernanceController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -184,8 +185,8 @@ class GovernanceController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -205,8 +206,8 @@ class GovernanceController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -238,8 +239,8 @@ class GovernanceController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction

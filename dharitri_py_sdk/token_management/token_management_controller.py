@@ -54,7 +54,8 @@ class TokenManagementController(BaseController):
         network_provider: INetworkProvider,
         gas_limit_estimator: Optional[IGasLimitEstimator] = None,
     ) -> None:
-        self.factory = TokenManagementTransactionsFactory(TransactionsFactoryConfig(chain_id), gas_limit_estimator)
+        super().__init__(gas_limit_estimator=gas_limit_estimator)
+        self.factory = TokenManagementTransactionsFactory(config=TransactionsFactoryConfig(chain_id))
         self.network_provider = network_provider
         self.parser = TokenManagementTransactionsOutcomeParser()
 
@@ -96,8 +97,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -145,8 +146,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -196,8 +197,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -247,8 +248,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -286,8 +287,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -322,8 +323,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -354,8 +355,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -395,8 +396,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -440,8 +441,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -486,8 +487,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -541,8 +542,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -576,8 +577,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -621,8 +622,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -638,6 +639,11 @@ class TokenManagementController(BaseController):
         add_role_nft_update_attributes: bool = False,
         add_role_nft_add_uri: bool = False,
         add_role_dcdt_transfer_role: bool = False,
+        add_role_nft_update: bool = False,
+        add_role_dcdt_modify_royalties: bool = False,
+        add_role_dcdt_set_new_uri: bool = False,
+        add_role_dcdt_modify_creator: bool = False,
+        add_role_nft_recreate: bool = False,
         guardian: Optional[Address] = None,
         relayer: Optional[Address] = None,
         gas_limit: Optional[int] = None,
@@ -652,6 +658,11 @@ class TokenManagementController(BaseController):
             add_role_nft_update_attributes=add_role_nft_update_attributes,
             add_role_nft_add_uri=add_role_nft_add_uri,
             add_role_dcdt_transfer_role=add_role_dcdt_transfer_role,
+            add_role_nft_update=add_role_nft_update,
+            add_role_dcdt_modify_royalties=add_role_dcdt_modify_royalties,
+            add_role_dcdt_set_new_uri=add_role_dcdt_set_new_uri,
+            add_role_dcdt_modify_creator=add_role_dcdt_modify_creator,
+            add_role_nft_recreate=add_role_nft_recreate,
         )
 
         transaction.guardian = guardian
@@ -659,8 +670,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -716,8 +727,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -754,8 +765,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -786,8 +797,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -818,8 +829,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -851,8 +862,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -884,8 +895,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -917,8 +928,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -952,8 +963,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -987,8 +998,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -1024,8 +1035,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -1061,8 +1072,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -1098,8 +1109,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -1135,8 +1146,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -1172,8 +1183,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -1205,8 +1216,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -1250,8 +1261,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -1295,8 +1306,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -1329,8 +1340,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -1366,8 +1377,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -1401,8 +1412,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -1444,8 +1455,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -1483,8 +1494,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -1513,8 +1524,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -1543,8 +1554,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -1569,8 +1580,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -1595,8 +1606,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -1620,8 +1631,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
@@ -1650,13 +1661,13 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
 
-    def create_transction_for_adding_uris(
+    def create_transaction_for_adding_uris(
         self,
         sender: IAccount,
         nonce: int,
@@ -1668,7 +1679,7 @@ class TokenManagementController(BaseController):
         gas_limit: Optional[int] = None,
         gas_price: Optional[int] = None,
     ) -> Transaction:
-        transaction = self.factory.create_transction_for_adding_uris(
+        transaction = self.factory.create_transaction_for_adding_uris(
             sender=sender.address,
             token_identifier=token_identifier,
             token_nonce=token_nonce,
@@ -1680,8 +1691,8 @@ class TokenManagementController(BaseController):
         transaction.nonce = nonce
 
         self._set_version_and_options_for_hash_signing(sender, transaction)
-        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         self._set_version_and_options_for_guardian(transaction)
+        self._set_transaction_gas_options(transaction, gas_limit, gas_price)
         transaction.signature = sender.sign_transaction(transaction)
 
         return transaction
