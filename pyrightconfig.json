@@ -1,0 +1,19 @@
+{
+    "include": [
+        "dharitri_py_sdk"
+    ],
+    "exclude": [
+        "**/__pycache__",
+        "**/transaction_pb2*"
+    ],
+    "ignore": [],
+    "defineConstant": {
+        "DEBUG": true
+    },
+    "venvPath": ".",
+    "venv": "venv",
+    "stubPath": "",
+    "reportMissingImports": true,
+    "reportMissingTypeStubs": false,
+    "reportUnknownParameterType": true
+}
