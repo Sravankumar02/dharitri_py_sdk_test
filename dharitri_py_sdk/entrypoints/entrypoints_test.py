@@ -101,7 +101,10 @@ class TestEntrypoint:
         assert len(query_result) == 1
         assert query_result[0] == 7
 
+<<<<<<< HEAD
     @pytest.mark.networkInteraction
+=======
+>>>>>>> main
     def test_get_account_factory_and_create_transaction(self):
         sender = Account.new_from_pem(self.alice_pem)
         sender.nonce = self.entrypoint.recall_account_nonce(sender.address)
@@ -226,7 +229,10 @@ class TestEntrypoint:
         assert isinstance(entrypoint.network_provider, ApiNetworkProvider)
         assert entrypoint.network_provider.url == "https://devnet-api.dharitri.org"
 
+<<<<<<< HEAD
     @pytest.mark.networkInteraction
+=======
+>>>>>>> main
     def test_ensure_chain_id_is_correctly_fetched(self):
         api = ApiNetworkProvider("https://devnet-api.dharitri.org")
         entrypoint = NetworkEntrypoint.new_from_network_provider(api)
@@ -234,7 +240,10 @@ class TestEntrypoint:
         _ = entrypoint.create_delegation_controller()
         assert entrypoint.chain_id == "D"
 
+<<<<<<< HEAD
     @pytest.mark.networkInteraction
+=======
+>>>>>>> main
     def test_should_estimate_gas_limit(self):
         entrypoint = DevnetEntrypoint(with_gas_limit_estimator=True, gas_limit_multiplier=1.5)
         controller = entrypoint.create_transfers_controller()

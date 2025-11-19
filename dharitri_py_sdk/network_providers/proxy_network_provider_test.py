@@ -425,7 +425,11 @@ class TestProxy:
 
         response = requests.get(self.proxy.url + "/network/config", **config.requests_options)
         headers = response.request.headers
+<<<<<<< HEAD
         assert headers.get("User-Agent") == "dharitri-py-sdk-py/proxy/unknown"
+=======
+        assert headers.get("User-Agent") == "dharitri-py-sdk/proxy/unknown"
+>>>>>>> main
 
         # using the new instantiated provider with user agent
         config = NetworkProviderConfig(client_name="test-client")
@@ -433,7 +437,11 @@ class TestProxy:
 
         response = requests.get(proxy.url + "/network/config", **proxy.config.requests_options)
         headers = response.request.headers
+<<<<<<< HEAD
         assert headers.get("User-Agent") == "dharitri-py-sdk-py/proxy/test-client"
+=======
+        assert headers.get("User-Agent") == "dharitri-py-sdk/proxy/test-client"
+>>>>>>> main
 
     def test_same_config_with_multiple_network_providers(self):
         config = NetworkProviderConfig(client_name="test-client")
@@ -441,6 +449,7 @@ class TestProxy:
 
         response = requests.get(proxy.url + "/network/config", **proxy.config.requests_options)
         headers = response.request.headers
+<<<<<<< HEAD
         assert headers.get("User-Agent") == "dharitri-py-sdk-py/proxy/test-client"
 
         # create new network provider with old config, we don't alter the config anymore
@@ -448,3 +457,10 @@ class TestProxy:
         assert (
             proxy.config.requests_options.get("headers", {}).get("User-Agent") == "dharitri-py-sdk-py/proxy/test-client"
         )
+=======
+        assert headers.get("User-Agent") == "dharitri-py-sdk/proxy/test-client"
+
+        # create new network provider with old config, we don't alter the config anymore
+        proxy = ProxyNetworkProvider(url="https://devnet-gateway.dharitri.org", config=config)
+        assert proxy.config.requests_options.get("headers", {}).get("User-Agent") == "dharitri-py-sdk/proxy/test-client"
+>>>>>>> main

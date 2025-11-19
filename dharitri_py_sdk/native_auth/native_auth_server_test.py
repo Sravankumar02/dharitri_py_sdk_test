@@ -402,10 +402,17 @@ class TestNativeAuthServer:
 
     def test_two_wildacards_not_accepted(self):
         config = deepcopy(self.default_config)
+<<<<<<< HEAD
         config.accepted_origins = ["*.dharitri*.com"]
 
         with pytest.raises(
             NativeAuthInvalidWildcardOriginError, match=re.escape("Invalid wildcard origin: *.dharitri*.com")
+=======
+        config.accepted_origins = ["*.dharitri*.org"]
+
+        with pytest.raises(
+            NativeAuthInvalidWildcardOriginError, match=re.escape("Invalid wildcard origin: *.dharitri*.org")
+>>>>>>> main
         ):
             server = NativeAuthServer(config)
             server.validate(self.ACCESS_TOKEN)

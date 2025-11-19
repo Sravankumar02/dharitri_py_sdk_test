@@ -52,7 +52,11 @@ class TestTokenManagementTransactionsOutcomeParser:
             identifier_base64,
             "U0VDT05E",
             "Wlpa",
+<<<<<<< HEAD
             "RnVuZ2libGVFU0RU",
+=======
+            "RnVuZ2libGVEQ0RU",
+>>>>>>> main
             "Ag==",
         ]
         event = TransactionEvent(
@@ -92,7 +96,11 @@ class TestTokenManagementTransactionsOutcomeParser:
             data=b"",
             additional_data=[],
         )
+<<<<<<< HEAD
         encoded_topics = ["TkZULWYwMWQxZQ==", "", "", "RVNEVFJvbGVCdXJuRm9yQWxs"]
+=======
+        encoded_topics = ["TkZULWYwMWQxZQ==", "", "", "RENEVFJvbGVCdXJuRm9yQWxs"]
+>>>>>>> main
         second_event = TransactionEvent(
             raw={},
             address=Address.new_from_bech32("drt18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawqfgxqg5"),
@@ -101,7 +109,11 @@ class TestTokenManagementTransactionsOutcomeParser:
             data=b"",
             additional_data=[],
         )
+<<<<<<< HEAD
         encoded_topics = [identifier_base64, "TkZURVNU", "TkZU", "Tm9uRnVuZ2libGVFU0RU"]
+=======
+        encoded_topics = [identifier_base64, "TkZURVNU", "TkZU", "Tm9uRnVuZ2libGVEQ0RU"]
+>>>>>>> main
         third_event = TransactionEvent(
             raw={},
             address=Address.new_from_bech32("drt18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawqfgxqg5"),
@@ -150,7 +162,11 @@ class TestTokenManagementTransactionsOutcomeParser:
     def test_parse_register_meta_dcdt(self):
         identifier = "METATEST-e05d11"
         identifier_base64 = base64.b64encode(identifier.encode()).decode()
+<<<<<<< HEAD
         encoded_topics = [identifier_base64, "TUVURVNU", "TUVUQVRFU1Q=", "TWV0YUVTRFQ="]
+=======
+        encoded_topics = [identifier_base64, "TUVURVNU", "TUVUQVRFU1Q=", "TWV0YURDRFQ="]
+>>>>>>> main
         event = TransactionEvent(
             raw={},
             address=Address.new_from_bech32("drt18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawqfgxqg5"),
@@ -247,7 +263,11 @@ class TestTokenManagementTransactionsOutcomeParser:
             raw={},
             sender=Address.new_from_bech32("drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls6prdez"),
             receiver=Address.new_from_bech32("drt18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawqfgxqg5"),
+<<<<<<< HEAD
             data="RVNEVFNldFJvbGVANGM0ZDQxNGYyZDY0Mzk2NjM4MzkzMkA0NTUzNDQ1NDUyNmY2YzY1NGM2ZjYzNjE2YzRkNjk2ZTc0QDQ1NTM0NDU0NTI2ZjZjNjU0YzZmNjM2MTZjNDI3NTcyNmU=".encode(),
+=======
+            data="RENEVFNldFJvbGVANGM0ZDQxNGYyZDY0Mzk2NjM4MzkzMkA0NTUzNDQ1NDUyNmY2YzY1NGM2ZjYzNjE2YzRkNjk2ZTc0QDQ1NTM0NDU0NTI2ZjZjNjU0YzZmNjM2MTZjNDI3NTcyNmU=".encode(),
+>>>>>>> main
             logs=result_logs,
         )
 

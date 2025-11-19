@@ -32,6 +32,7 @@ from dharitri_py_sdk.testutils.mock_network_provider import MockNetworkProvider
 from dharitri_py_sdk.testutils.utils import create_network_providers_config
 
 
+<<<<<<< HEAD
 @pytest.mark.networkInteraction
 class TestMultisigController:
     def setup_method(self):
@@ -49,6 +50,21 @@ class TestMultisigController:
         self.john.nonce = self.network_provider.get_account(self.john.address).nonce
         self.bob = Account.new_from_pem(self.testwallets / "bob.pem")
         self.contract = Address.new_from_bech32("drt1qqqqqqqqqqqqqpgqe832k3l6d02ww7l9cvqum25539nmmdxa9ncssqu3lh")
+=======
+class TestMultisigController:
+    testdata = Path(__file__).parent.parent / "testutils" / "testdata"
+    testwallets = Path(__file__).parent.parent / "testutils" / "testwallets"
+    multisig_bytecode = (testdata / "multisig-full.wasm").read_bytes()
+    multisig_abi = Abi.load(testdata / "multisig-full.abi.json")
+    network_provider = ApiNetworkProvider(
+        url="https://devnet-api.dharitri.org", config=create_network_providers_config()
+    )
+    controller = MultisigController(chain_id="D", network_provider=network_provider, abi=multisig_abi)
+    john = Account.new_from_pem(testwallets / "user.pem")
+    john.nonce = network_provider.get_account(john.address).nonce
+    bob = Account.new_from_pem(testwallets / "bob.pem")
+    contract = Address.new_from_bech32("drt1qqqqqqqqqqqqqpgqe832k3l6d02ww7l9cvqum25539nmmdxa9ncssqu3lh")
+>>>>>>> main
 
     def test_deploy_contract(self):
         transaction = self.controller.create_transaction_for_deploy(
@@ -71,6 +87,10 @@ class TestMultisigController:
             == f"{self.multisig_bytecode.hex()}@0500@0504@02@3fb81f4303be6f7377350b8a595f94b13fd6cbce4c4c7d2c63e9e1f8f0d42cf1@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8"
         )
 
+<<<<<<< HEAD
+=======
+    @pytest.mark.networkInteraction
+>>>>>>> main
     def test_deploy_contract_using_gas_estimator(self):
         gas = GasLimitEstimator(self.network_provider)
         controller = MultisigController(
