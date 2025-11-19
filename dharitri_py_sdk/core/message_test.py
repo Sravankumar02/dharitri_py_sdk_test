@@ -8,13 +8,12 @@ from dharitri_py_sdk.wallet.user_verifer import UserVerifier
 
 parent = Path(__file__).parent.parent
 message_computer = MessageComputer()
-alice = Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh")
+alice = Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf")
 
 
 def test_message_v1_serialize_for_signing():
     message = Message(data="test message".encode())
     serialized = message_computer.compute_bytes_for_signing(message)
-
     assert serialized.hex() == "0f6fce3fa6130fc58a25eaff6e157ea1bcb02fbf9773dca514dfaf3cd1e0bdfe"
 
 
@@ -23,17 +22,16 @@ def test_sign_packed_message_and_verify_unpacked_message():
 
     signer = UserSigner.from_pem_file(parent / "testutils" / "testwallets" / "alice.pem")
     message.signature = signer.sign(message_computer.compute_bytes_for_signing(message))
-
     assert (
         message.signature.hex()
-        == "2758dcd8e5b5f7ccfaeaf7e0362ace8f83145c573da3f495d9218b2de367d161e007f3db5f288123b937cd7abaefaf7e66f417cc59ef8618c405de22578e6608"
+        == "70e7cbd157568ce5250ced7c3e6caf97669c47142cc337b135bbd7a438ae962fa84a426fd1b64fcdcdecc3a2935b7db9b8d35035eaae153126608c2c03602109"
     )
 
     packed_message = message_computer.pack_message(message)
     assert packed_message == {
-        "address": "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh",
+        "address": "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf",
         "message": "74657374",
-        "signature": "2758dcd8e5b5f7ccfaeaf7e0362ace8f83145c573da3f495d9218b2de367d161e007f3db5f288123b937cd7abaefaf7e66f417cc59ef8618c405de22578e6608",
+        "signature": "70e7cbd157568ce5250ced7c3e6caf97669c47142cc337b135bbd7a438ae962fa84a426fd1b64fcdcdecc3a2935b7db9b8d35035eaae153126608c2c03602109",
         "version": 1,
         "signer": SDK_PY_SIGNER,
     }
@@ -54,7 +52,7 @@ def test_sign_packed_message_and_verify_unpacked_message():
 
 def test_unpack_legacy_message():
     legacy_message = {
-        "address": "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh",
+        "address": "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf",
         "message": "0x7468697320697320612074657374206d657373616765",
         "signature": "0xb16847437049986f936dd4a0917c869730cbf29e40a0c0821ca70db33f44758c3d41bcbea446dee70dea13d50942343bb78e74979dc434bbb2b901e0f4fd1809",
         "version": 1,
@@ -75,7 +73,7 @@ def test_unpack_legacy_message():
 
 def test_unpack_message():
     packed_message = {
-        "address": "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh",
+        "address": "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf",
         "message": "0x7468697320697320612074657374206d657373616765",
         "signature": "0xb16847437049986f936dd4a0917c869730cbf29e40a0c0821ca70db33f44758c3d41bcbea446dee70dea13d50942343bb78e74979dc434bbb2b901e0f4fd1809",
     }

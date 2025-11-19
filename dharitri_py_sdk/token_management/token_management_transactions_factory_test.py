@@ -7,9 +7,9 @@ from dharitri_py_sdk.token_management.token_management_transactions_factory impo
     TokenType,
 )
 
-frank = Address.new_from_bech32("drt10xpcr2cqud9vm6q4axfv64ek63k7xywfcy8zyjp7pvx3kr4cnqlqv3scy7")
+frank = Address.new_from_bech32("drt1kdl46yctawygtwg2k462307dmz2v55c605737dp3zkxh04sct7asacg58j")
 grace = Address.new_from_bech32("drt1r69gk66fmedhhcg24g2c5kn2f2a5k4kvpr6jfw67dn2lyydd8cfsncd6w8")
-alice = Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh")
+alice = Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf")
 factory = TokenManagementTransactionsFactory(TransactionsFactoryConfig("T"))
 
 
@@ -248,7 +248,7 @@ def test_create_transaction_for_setting_special_role_on_fungible_token():
     assert transaction.data
     assert (
         transaction.data.decode()
-        == f"setSpecialRole@4652414e4b2d313163653365@1e8a8b6b49de5b7be10aaa158a5a6a4abb4b56cc08f524bb5e6cd5f211ad3e13@44434454526f6c654c6f63616c4d696e74"
+        == f"setSpecialRole@4652414e4b2d313163653365@1e8a8b6b49de5b7be10aaa158a5a6a4abb4b56cc08f524bb5e6cd5f211ad3e13@{mint_role_as_hex}"
     )
     assert transaction.sender == frank
     assert transaction.value == 0
@@ -269,7 +269,7 @@ def test_create_transaction_for_unsetting_special_role_on_fungible_token():
     assert transaction.data
     assert (
         transaction.data.decode()
-        == f"unSetSpecialRole@4652414e4b2d313163653365@1e8a8b6b49de5b7be10aaa158a5a6a4abb4b56cc08f524bb5e6cd5f211ad3e13@44434454526f6c654c6f63616c4d696e74"
+        == f"unSetSpecialRole@4652414e4b2d313163653365@1e8a8b6b49de5b7be10aaa158a5a6a4abb4b56cc08f524bb5e6cd5f211ad3e13@{mint_role_as_hex}"
     )
     assert transaction.sender == frank
     assert transaction.value == 0
@@ -292,7 +292,7 @@ def test_set_all_roles_on_fungible_token():
     assert transaction.data
     assert (
         transaction.data.decode()
-        == f"setSpecialRole@4652414e4b2d313163653365@1e8a8b6b49de5b7be10aaa158a5a6a4abb4b56cc08f524bb5e6cd5f211ad3e13@44434454526f6c654c6f63616c4d696e74@44434454526f6c654c6f63616c4275726e@444344545472616e73666572526f6c65"
+        == f"setSpecialRole@4652414e4b2d313163653365@1e8a8b6b49de5b7be10aaa158a5a6a4abb4b56cc08f524bb5e6cd5f211ad3e13@{mint_role_as_hex}@{burn_role_as_hex}@{transfer_role_as_hex}"
     )
     assert transaction.sender == frank
     assert transaction.value == 0
@@ -724,7 +724,7 @@ def test_transfer_ownership():
 
     assert (
         transaction.data.decode()
-        == "transferOwnership@414e442d316435366632@798381ab00e34acde815e992cd5736d46de311c9c10e22483e0b0d1b0eb8983e"
+        == "transferOwnership@414e442d316435366632@b37f5d130beb8885b90ab574a8bfcdd894ca531a7d3d1f3431158d77d6185fbb"
     )
     assert transaction.sender == alice
     assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls6prdez"
@@ -739,7 +739,7 @@ def test_create_transaction_for_freezing_single_nft():
 
     assert (
         transaction.data.decode()
-        == "freezeSingleNFT@544553542d313233343536@01@798381ab00e34acde815e992cd5736d46de311c9c10e22483e0b0d1b0eb8983e"
+        == "freezeSingleNFT@544553542d313233343536@01@b37f5d130beb8885b90ab574a8bfcdd894ca531a7d3d1f3431158d77d6185fbb"
     )
     assert transaction.sender == alice
     assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls6prdez"
@@ -754,7 +754,7 @@ def test_create_transaction_for_unfreezing_single_nft():
 
     assert (
         transaction.data.decode()
-        == "unFreezeSingleNFT@544553542d313233343536@01@798381ab00e34acde815e992cd5736d46de311c9c10e22483e0b0d1b0eb8983e"
+        == "unFreezeSingleNFT@544553542d313233343536@01@b37f5d130beb8885b90ab574a8bfcdd894ca531a7d3d1f3431158d77d6185fbb"
     )
     assert transaction.sender == alice
     assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls6prdez"
@@ -785,7 +785,7 @@ def test_create_transaction_for_transferring_nft_create_role():
 
     assert (
         transaction.data.decode()
-        == "transferNFTCreateRole@5346542d313233343536@391f932707a9dfa86d3bcbb3d5d0cc9f25ad0e680fe499f107d844b7e6ea71d5@798381ab00e34acde815e992cd5736d46de311c9c10e22483e0b0d1b0eb8983e"
+        == "transferNFTCreateRole@5346542d313233343536@0139472eff6886771a982f3083da5d421f24c29181e63888228dc81ca60d69e1@b37f5d130beb8885b90ab574a8bfcdd894ca531a7d3d1f3431158d77d6185fbb"
     )
     assert transaction.sender == alice
     assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls6prdez"
@@ -813,7 +813,7 @@ def test_create_transaction_for_wiping_single_nft():
 
     assert (
         transaction.data.decode()
-        == "wipeSingleNFT@5346542d313233343536@0a@798381ab00e34acde815e992cd5736d46de311c9c10e22483e0b0d1b0eb8983e"
+        == "wipeSingleNFT@5346542d313233343536@0a@b37f5d130beb8885b90ab574a8bfcdd894ca531a7d3d1f3431158d77d6185fbb"
     )
     assert transaction.sender == alice
     assert transaction.receiver.to_bech32() == "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls6prdez"
@@ -822,7 +822,7 @@ def test_create_transaction_for_wiping_single_nft():
 
 
 def test_create_transaction_for_adding_uris():
-    transaction = factory.create_transction_for_adding_uris(
+    transaction = factory.create_transaction_for_adding_uris(
         sender=alice, token_identifier="SFT-123456", token_nonce=10, uris=["firstURI", "secondURI"]
     )
 

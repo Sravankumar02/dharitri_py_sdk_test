@@ -21,11 +21,11 @@ def test_generate():
 
 def test_derive_keys():
     mnemonic = Mnemonic(
-        "bread type ride autumn corn maid benefit pole that normal orchard confirm napkin degree arrow guitar offer you enjoy bronze more onion push decorate"
+        "moral volcano peasant pass circle pen over picture flat shop clap goat never lyrics gather prepare woman film husband gravity behind test tiger improve"
     )
-    assert mnemonic.derive_key(0).hex() == "2bbcdae7e193924fa0d301e7a12c7defc92a93bc5e587cc968f04fcb86022e1c"
-    assert mnemonic.derive_key(1).hex() == "1f4d9984ff57a9bcc7b8aea32069e41d36366e4dd9e08f55c6691168de06f2c3"
-    assert mnemonic.derive_key(2).hex() == "6c030765ecd8dce0e8aa8e15ab10823d5ae5dc682d3cb6c260640f01def7a587"
+    assert mnemonic.derive_key(0).hex() == "413f42575f7f26fad3317a778771212fdb80245850981e48b58a4f25e344e8f9"
+    assert mnemonic.derive_key(1).hex() == "b8ca6f8203fb4b545a8e83c5384da033c415db155b53fb5b8eba7ff5a039d639"
+    assert mnemonic.derive_key(2).hex() == "e253a571ca153dc2aee845819f74bcc9773b0586edead15a94cb7235a5027436"
 
     # change the text to an invalid mnemonic
     mnemonic.text = "this is an invalid mnemonic"

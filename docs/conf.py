@@ -14,7 +14,11 @@ sys.path.insert(0, os.path.abspath(".."))
 project = "dharitri-py-sdk"
 copyright = "2025, DharitrI"
 author = "DharitrI"
-release = "0.0.5"
+<<<<<<< HEAD
+release = "0.0.6"
+=======
+release = "0.0.7"
+>>>>>>> main
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

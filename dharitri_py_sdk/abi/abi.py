@@ -328,6 +328,11 @@ class Abi:
             return TokenIdentifierValue()
         if name == "RewaOrDcdtTokenIdentifier":
             return TokenIdentifierValue()
+<<<<<<< HEAD
+=======
+        if name == "DcdtTokenIdentifier":
+            return TokenIdentifierValue()
+>>>>>>> main
         if name == "CodeMetadata":
             return CodeMetadataValue()
         if name == "tuple":

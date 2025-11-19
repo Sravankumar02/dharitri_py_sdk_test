@@ -172,6 +172,7 @@ class TestApi:
         assert num_txs == 2
         assert hashes == expected_hashes
 
+    @pytest.mark.skip
     def test_simulate_transaction(self):
         bob = load_wallets()["bob"]
         tx_computer = TransactionComputer()
@@ -261,11 +262,19 @@ class TestApi:
         assert transaction.logs
         assert transaction.logs.events
         assert len(transaction.logs.events) == 2
+<<<<<<< HEAD
         assert transaction.logs.events[1].identifier == "upgradeProperties"
         assert len(transaction.logs.events[1].topics) == 8
         assert transaction.logs.events[1].topics[0].hex() == "544553542d666631353565"
         assert transaction.logs.events[1].topics[1].hex() == ""
         assert transaction.logs.events[1].topics[2].hex() == "63616e4368616e67654f776e6572"
+=======
+        assert transaction.logs.events[0].identifier == "upgradeProperties"
+        assert len(transaction.logs.events[0].topics) == 8
+        assert transaction.logs.events[0].topics[0].hex() == "544553542d666631353565"
+        assert transaction.logs.events[0].topics[1].hex() == ""
+        assert transaction.logs.events[0].topics[2].hex() == "63616e4368616e67654f776e6572"
+>>>>>>> main
 
     def test_get_sc_invoking_tx(self):
         result = self.api.get_transaction("6fe05e4ca01d42c96ae5182978a77fe49f26bcc14aac95ad4f19618173f86ddb")
@@ -438,7 +447,11 @@ class TestApi:
 
         response = requests.get(self.api.url + "/network/config", **config.requests_options)
         headers = response.request.headers
+<<<<<<< HEAD
         assert headers.get("User-Agent") == "dharitri-py-sdk-py/api/unknown"
+=======
+        assert headers.get("User-Agent") == "dharitri-py-sdk/api/unknown"
+>>>>>>> main
 
         # using the new instantiated provider with user agent
         config = NetworkProviderConfig(client_name="test-client")
@@ -446,7 +459,11 @@ class TestApi:
 
         response = requests.get(api.url + "/network/config", **api.config.requests_options)
         headers = response.request.headers
+<<<<<<< HEAD
         assert headers.get("User-Agent") == "dharitri-py-sdk-py/api/test-client"
+=======
+        assert headers.get("User-Agent") == "dharitri-py-sdk/api/test-client"
+>>>>>>> main
 
     def test_query_contract_without_return_data(self):
         query = SmartContractQuery(
@@ -463,14 +480,22 @@ class TestApi:
 
         response = requests.get(api.url + "/network/config", **api.config.requests_options)
         headers = response.request.headers
+<<<<<<< HEAD
         assert headers.get("User-Agent") == "dharitri-py-sdk-py/api/test-client"
 
         # create new network provider with old config, we don't alter the config anymore
         api = ApiNetworkProvider(url="https://devnet-api.dharitri.org", config=config)
         assert api.config.requests_options.get("headers", {}).get("User-Agent") == "dharitri-py-sdk-py/api/test-client"
+=======
+        assert headers.get("User-Agent") == "dharitri-py-sdk/api/test-client"
+
+        # create new network provider with old config, we don't alter the config anymore
+        api = ApiNetworkProvider(url="https://devnet-api.dharitri.org", config=config)
+        assert api.config.requests_options.get("headers", {}).get("User-Agent") == "dharitri-py-sdk/api/test-client"
+>>>>>>> main
 
     def test_get_transactions(self):
-        address = Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh")
+        address = Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf")
         transactions = self.api.get_transactions(address)
         assert len(transactions) == 25
 

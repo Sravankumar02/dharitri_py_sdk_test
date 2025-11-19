@@ -1,7 +1,4 @@
-import pytest
-
 from dharitri_py_sdk.core import Address, Token, TokenTransfer
-from dharitri_py_sdk.core.errors import BadUsageError
 from dharitri_py_sdk.core.transactions_factory_config import TransactionsFactoryConfig
 from dharitri_py_sdk.transfers.transfer_transactions_factory import (
     TransferTransactionsFactory,
@@ -10,16 +7,16 @@ from dharitri_py_sdk.transfers.transfer_transactions_factory import (
 
 class TestTransferTransactionsFactory:
     transfer_factory = TransferTransactionsFactory(TransactionsFactoryConfig("D"))
-    alice = Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh")
-    bob = Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2")
+    alice = Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf")
+    bob = Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c")
 
     def test_create_transaction_for_native_token_transfer_no_data(self):
         transaction = self.transfer_factory.create_transaction_for_native_token_transfer(
             sender=self.alice, receiver=self.bob, native_amount=1000000000000000000
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
-        assert transaction.receiver.to_bech32() == "drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == "drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"
         assert transaction.value == 1000000000000000000
         assert transaction.chain_id == "D"
         assert transaction.gas_limit == 50_000
@@ -33,8 +30,8 @@ class TestTransferTransactionsFactory:
             data="test data",
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
-        assert transaction.receiver.to_bech32() == "drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == "drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"
         assert transaction.value == 1000000000000000000
         assert transaction.chain_id == "D"
         assert transaction.gas_limit == 63_500
@@ -48,8 +45,8 @@ class TestTransferTransactionsFactory:
             sender=self.alice, receiver=self.bob, token_transfers=[token_transfer]
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
-        assert transaction.receiver.to_bech32() == "drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == "drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"
         assert transaction.value == 0
         assert transaction.chain_id == "D"
         assert transaction.data.decode() == "DCDTTransfer@464f4f2d313233343536@0f4240"
@@ -63,13 +60,13 @@ class TestTransferTransactionsFactory:
             sender=self.alice, receiver=self.bob, token_transfers=[token_transfer]
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
-        assert transaction.receiver.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.value == 0
         assert transaction.chain_id == "D"
         assert (
             transaction.data.decode()
-            == "DCDTNFTTransfer@4e46542d313233343536@0a@01@3ddf173c9e02c0e58fb1e552f473d98da6a4c3f23c7e034c912ee98a8dddce17"
+            == "DCDTNFTTransfer@4e46542d313233343536@0a@01@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8"
         )
         assert transaction.gas_limit == 1_210_500
 
@@ -86,13 +83,13 @@ class TestTransferTransactionsFactory:
             token_transfers=[first_transfer, second_transfer],
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
-        assert transaction.receiver.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.value == 0
         assert transaction.chain_id == "D"
         assert (
             transaction.data.decode()
-            == "MultiDCDTNFTTransfer@3ddf173c9e02c0e58fb1e552f473d98da6a4c3f23c7e034c912ee98a8dddce17@02@4e46542d313233343536@0a@01@544553542d393837363534@01@01"
+            == "MultiDCDTNFTTransfer@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8@02@4e46542d313233343536@0a@01@544553542d393837363534@01@01"
         )
         assert transaction.gas_limit == 1_466_000
 
@@ -103,17 +100,44 @@ class TestTransferTransactionsFactory:
         )
         assert second_transaction == transaction
 
-    def test_create_transaction_for_token_transfer_with_errors(self):
-        with pytest.raises(BadUsageError, match="Can't set data field when sending dcdt tokens"):
-            nft = Token("NFT-123456", 10)
-            transfer = TokenTransfer(nft, 1)
+    def test_create_transaction_for_nft_transfer_with_data(self):
+        nft = Token("NFT-123456", 10)
+        transfer = TokenTransfer(nft, 1)
 
-            self.transfer_factory.create_transaction_for_transfer(
-                sender=self.alice,
-                receiver=self.bob,
-                token_transfers=[transfer],
-                data="hello".encode(),
-            )
+        transaction = self.transfer_factory.create_transaction_for_transfer(
+            sender=self.alice,
+            receiver=self.bob,
+            token_transfers=[transfer],
+            data="hello".encode(),
+        )
+
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.value == 0
+        assert transaction.chain_id == "D"
+        assert transaction.gas_limit == 1_227_000
+        assert (
+            transaction.data.decode()
+            == "DCDTNFTTransfer@4e46542d313233343536@0a@01@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8@68656c6c6f"
+        )
+
+    def test_create_transaction_for_dcdt_transfer_with_data(self):
+        token = Token("TEST-123456")
+        transfer = TokenTransfer(token, 7)
+
+        transaction = self.transfer_factory.create_transaction_for_transfer(
+            sender=self.alice,
+            receiver=self.bob,
+            token_transfers=[transfer],
+            data="hello".encode(),
+        )
+
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == "drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"
+        assert transaction.value == 0
+        assert transaction.chain_id == "D"
+        assert transaction.gas_limit == 423_500
+        assert transaction.data.decode() == "DCDTTransfer@544553542d313233343536@07@68656c6c6f"
 
     def test_create_transaction_for_native_transfer(self):
         transaction = self.transfer_factory.create_transaction_for_transfer(
@@ -122,8 +146,8 @@ class TestTransferTransactionsFactory:
             native_amount=1000000000000000000,
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
-        assert transaction.receiver.to_bech32() == "drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == "drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"
         assert transaction.value == 1000000000000000000
         assert transaction.chain_id == "D"
         assert transaction.gas_limit == 50_000
@@ -136,8 +160,8 @@ class TestTransferTransactionsFactory:
             data="hello".encode(),
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
-        assert transaction.receiver.to_bech32() == "drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == "drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"
         assert transaction.value == 1000000000000000000
         assert transaction.chain_id == "D"
         assert transaction.gas_limit == 57_500
@@ -147,8 +171,8 @@ class TestTransferTransactionsFactory:
             sender=self.alice, receiver=self.bob, data="hello".encode()
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
-        assert transaction.receiver.to_bech32() == "drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == "drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"
         assert transaction.value == 0
         assert transaction.chain_id == "D"
         assert transaction.gas_limit == 57_500
@@ -167,15 +191,40 @@ class TestTransferTransactionsFactory:
             token_transfers=[first_transfer, second_transfer],
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
-        assert transaction.receiver.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.value == 0
         assert transaction.chain_id == "D"
         assert (
             transaction.data.decode()
-            == "MultiDCDTNFTTransfer@3ddf173c9e02c0e58fb1e552f473d98da6a4c3f23c7e034c912ee98a8dddce17@03@4e46542d313233343536@0a@01@544553542d393837363534@01@01@524557412d303030303030@@0de0b6b3a7640000"
+            == "MultiDCDTNFTTransfer@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8@03@4e46542d313233343536@0a@01@544553542d393837363534@01@01@524557412d303030303030@@0de0b6b3a7640000"
         )
         assert transaction.gas_limit == 1_727_500
+
+    def test_create_transaction_for_token_transfers_with_data(self):
+        first_nft = Token("NFT-123456", 10)
+        first_transfer = TokenTransfer(first_nft, 1)
+
+        second_nft = Token("TEST-987654", 1)
+        second_transfer = TokenTransfer(second_nft, 1)
+
+        transaction = self.transfer_factory.create_transaction_for_transfer(
+            sender=self.alice,
+            receiver=self.bob,
+            native_amount=1000000000000000000,
+            token_transfers=[first_transfer, second_transfer],
+            data="hello".encode(),
+        )
+
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.value == 0
+        assert transaction.chain_id == "D"
+        assert (
+            transaction.data.decode()
+            == "MultiDCDTNFTTransfer@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8@03@4e46542d313233343536@0a@01@544553542d393837363534@01@01@524557412d303030303030@@0de0b6b3a7640000@68656c6c6f"
+        )
+        assert transaction.gas_limit == 1744000
 
     def test_rewa_as_single_token_transfer(self):
         rewa = Token("REWA-000000")
@@ -185,13 +234,13 @@ class TestTransferTransactionsFactory:
             sender=self.alice, receiver=self.bob, token_transfers=[transfer]
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
-        assert transaction.receiver.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.value == 0
         assert transaction.chain_id == "D"
         assert (
             transaction.data.decode()
-            == "MultiDCDTNFTTransfer@3ddf173c9e02c0e58fb1e552f473d98da6a4c3f23c7e034c912ee98a8dddce17@01@524557412d303030303030@@0de0b6b3a7640000"
+            == "MultiDCDTNFTTransfer@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8@01@524557412d303030303030@@0de0b6b3a7640000"
         )
         assert transaction.gas_limit == 1_243_500
 
@@ -203,13 +252,13 @@ class TestTransferTransactionsFactory:
             sender=self.alice, receiver=self.bob, token_transfers=[transfer]
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
-        assert transaction.receiver.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.value == 0
         assert transaction.chain_id == "D"
         assert (
             transaction.data.decode()
-            == "DCDTNFTTransfer@74302d4e46542d313233343536@0a@01@3ddf173c9e02c0e58fb1e552f473d98da6a4c3f23c7e034c912ee98a8dddce17"
+            == "DCDTNFTTransfer@74302d4e46542d313233343536@0a@01@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8"
         )
         assert transaction.gas_limit == 1_219_500
 
@@ -226,13 +275,13 @@ class TestTransferTransactionsFactory:
             token_transfers=[first_transfer, second_transfer],
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
-        assert transaction.receiver.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.value == 0
         assert transaction.chain_id == "D"
         assert (
             transaction.data.decode()
-            == "MultiDCDTNFTTransfer@3ddf173c9e02c0e58fb1e552f473d98da6a4c3f23c7e034c912ee98a8dddce17@02@74302d4e46542d313233343536@0a@01@74302d544553542d393837363534@01@01"
+            == "MultiDCDTNFTTransfer@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8@02@74302d4e46542d313233343536@0a@01@74302d544553542d393837363534@01@01"
         )
         assert transaction.gas_limit == 1_484_000
 
@@ -257,12 +306,12 @@ class TestTransferTransactionsFactory:
             token_transfers=[first_transfer, second_transfer],
         )
 
-        assert transaction.sender.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
-        assert transaction.receiver.to_bech32() == "drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh"
+        assert transaction.sender.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
+        assert transaction.receiver.to_bech32() == "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"
         assert transaction.value == 0
         assert transaction.chain_id == "D"
         assert (
             transaction.data.decode()
-            == "MultiDCDTNFTTransfer@3ddf173c9e02c0e58fb1e552f473d98da6a4c3f23c7e034c912ee98a8dddce17@03@74302d4e46542d313233343536@0a@01@74302d544553542d393837363534@@01@524557412d303030303030@@0de0b6b3a7640000"
+            == "MultiDCDTNFTTransfer@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8@03@74302d4e46542d313233343536@0a@01@74302d544553542d393837363534@@01@524557412d303030303030@@0de0b6b3a7640000"
         )
         assert transaction.gas_limit == 1_742_500

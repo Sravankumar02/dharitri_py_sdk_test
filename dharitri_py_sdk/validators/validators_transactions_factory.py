@@ -9,7 +9,10 @@ from dharitri_py_sdk.abi.serializer import Serializer
 from dharitri_py_sdk.abi.small_int_values import U32Value
 from dharitri_py_sdk.core.address import Address
 from dharitri_py_sdk.core.base_factory import BaseFactory
-from dharitri_py_sdk.core.constants import STAKING_SMART_CONTRACT_ADDRESS_HEX
+from dharitri_py_sdk.core.constants import (
+    DELEGATION_MANAGER_SC_ADDRESS_HEX,
+    STAKING_SMART_CONTRACT_ADDRESS_HEX,
+)
 from dharitri_py_sdk.core.interfaces import IGasLimitEstimator
 from dharitri_py_sdk.core.transaction import Transaction
 from dharitri_py_sdk.core.transactions_factory_config import TransactionsFactoryConfig
@@ -315,6 +318,76 @@ class ValidatorsTransactionsFactory(BaseFactory):
         self.set_gas_limit(
             transaction=transaction,
             config_gas_limit=self.config.gas_limit_for_restaking_unstaked_tokens * len(public_keys),
+        )
+
+        return transaction
+
+    def create_transaction_for_new_delegation_contract_from_validator_data(
+        self,
+        sender: Address,
+        max_cap: int,
+        fee: int,
+    ) -> Transaction:
+        serializer = Serializer()
+        args = [arg.hex() for arg in serializer.serialize_to_parts([BigUIntValue(max_cap), BigUIntValue(fee)])]
+
+        data_parts = ["makeNewContractFromValidatorData"] + args
+
+        transaction = Transaction(
+            sender=sender,
+            receiver=Address.new_from_hex(DELEGATION_MANAGER_SC_ADDRESS_HEX),
+            gas_limit=0,
+            chain_id=self.config.chain_id,
+        )
+
+        self.set_payload(transaction, data_parts)
+        self.set_gas_limit(
+            transaction=transaction,
+            config_gas_limit=self.config.gas_limit_for_creating_delegation_contract_from_validator,
+        )
+
+        return transaction
+
+    def create_transaction_for_merging_validator_to_delegation_with_whitelist(
+        self,
+        sender: Address,
+        delegation_contract: Address,
+    ) -> Transaction:
+        data_parts = ["mergeValidatorToDelegationWithWhitelist", delegation_contract.to_hex()]
+
+        transaction = Transaction(
+            sender=sender,
+            receiver=Address.new_from_hex(DELEGATION_MANAGER_SC_ADDRESS_HEX),
+            gas_limit=0,
+            chain_id=self.config.chain_id,
+        )
+
+        self.set_payload(transaction, data_parts)
+        self.set_gas_limit(
+            transaction=transaction,
+            config_gas_limit=self.config.gas_limit_for_merging_validator_to_delegation,
+        )
+
+        return transaction
+
+    def create_transaction_for_merging_validator_to_delegation_same_owner(
+        self,
+        sender: Address,
+        delegation_contract: Address,
+    ) -> Transaction:
+        data_parts = ["mergeValidatorToDelegationSameOwner", delegation_contract.to_hex()]
+
+        transaction = Transaction(
+            sender=sender,
+            receiver=Address.new_from_hex(DELEGATION_MANAGER_SC_ADDRESS_HEX),
+            gas_limit=0,
+            chain_id=self.config.chain_id,
+        )
+
+        self.set_payload(transaction, data_parts)
+        self.set_gas_limit(
+            transaction=transaction,
+            config_gas_limit=self.config.gas_limit_for_merging_validator_to_delegation,
         )
 
         return transaction

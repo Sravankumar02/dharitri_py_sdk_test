@@ -1,12 +1,15 @@
 import base64
 from pathlib import Path
+
 import pytest
+
 from dharitri_py_sdk.abi.abi import Abi
 from dharitri_py_sdk.abi.biguint_value import BigUIntValue
 from dharitri_py_sdk.abi.small_int_values import U32Value
 from dharitri_py_sdk.accounts.account import Account
 from dharitri_py_sdk.core.address import Address
 from dharitri_py_sdk.core.tokens import Token, TokenTransfer
+from dharitri_py_sdk.gas_estimator.gas_limit_estimator import GasLimitEstimator
 from dharitri_py_sdk.multisig.multisig_controller import MultisigController
 from dharitri_py_sdk.multisig.resources import (
     AddBoardMember,
@@ -29,26 +32,39 @@ from dharitri_py_sdk.testutils.mock_network_provider import MockNetworkProvider
 from dharitri_py_sdk.testutils.utils import create_network_providers_config
 
 
+<<<<<<< HEAD
 @pytest.mark.networkInteraction
 class TestMultisigController:
     def setup_method(self):
         self.testdata = Path(__file__).parent.parent / "testutils" / "testdata"
         self.testwallets = Path(__file__).parent.parent / "testutils" / "testwallets"
-
         self.multisig_bytecode = (self.testdata / "multisig-full.wasm").read_bytes()
         self.multisig_abi = Abi.load(self.testdata / "multisig-full.abi.json")
-
         self.network_provider = ApiNetworkProvider(
             url="https://devnet-api.dharitri.org", config=create_network_providers_config()
         )
         self.controller = MultisigController(
             chain_id="D", network_provider=self.network_provider, abi=self.multisig_abi
         )
-
         self.john = Account.new_from_pem(self.testwallets / "user.pem")
         self.john.nonce = self.network_provider.get_account(self.john.address).nonce
         self.bob = Account.new_from_pem(self.testwallets / "bob.pem")
         self.contract = Address.new_from_bech32("drt1qqqqqqqqqqqqqpgqe832k3l6d02ww7l9cvqum25539nmmdxa9ncssqu3lh")
+=======
+class TestMultisigController:
+    testdata = Path(__file__).parent.parent / "testutils" / "testdata"
+    testwallets = Path(__file__).parent.parent / "testutils" / "testwallets"
+    multisig_bytecode = (testdata / "multisig-full.wasm").read_bytes()
+    multisig_abi = Abi.load(testdata / "multisig-full.abi.json")
+    network_provider = ApiNetworkProvider(
+        url="https://devnet-api.dharitri.org", config=create_network_providers_config()
+    )
+    controller = MultisigController(chain_id="D", network_provider=network_provider, abi=multisig_abi)
+    john = Account.new_from_pem(testwallets / "user.pem")
+    john.nonce = network_provider.get_account(john.address).nonce
+    bob = Account.new_from_pem(testwallets / "bob.pem")
+    contract = Address.new_from_bech32("drt1qqqqqqqqqqqqqpgqe832k3l6d02ww7l9cvqum25539nmmdxa9ncssqu3lh")
+>>>>>>> main
 
     def test_deploy_contract(self):
         transaction = self.controller.create_transaction_for_deploy(
@@ -68,7 +84,37 @@ class TestMultisigController:
         assert transaction.chain_id == "D"
         assert (
             transaction.data.decode()
-            == f"{self.multisig_bytecode.hex()}@0500@0504@02@3fb81f4303be6f7377350b8a595f94b13fd6cbce4c4c7d2c63e9e1f8f0d42cf1@3ddf173c9e02c0e58fb1e552f473d98da6a4c3f23c7e034c912ee98a8dddce17"
+            == f"{self.multisig_bytecode.hex()}@0500@0504@02@3fb81f4303be6f7377350b8a595f94b13fd6cbce4c4c7d2c63e9e1f8f0d42cf1@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8"
+        )
+
+<<<<<<< HEAD
+=======
+    @pytest.mark.networkInteraction
+>>>>>>> main
+    def test_deploy_contract_using_gas_estimator(self):
+        gas = GasLimitEstimator(self.network_provider)
+        controller = MultisigController(
+            chain_id="D", network_provider=self.network_provider, abi=self.multisig_abi, gas_limit_estimator=gas
+        )
+
+        self.john.nonce = self.network_provider.get_account(self.john.address).nonce
+        transaction = controller.create_transaction_for_deploy(
+            sender=self.john,
+            nonce=self.john.get_nonce_then_increment(),
+            bytecode=self.multisig_bytecode,
+            quorum=2,
+            board=[self.john.address, self.bob.address],
+        )
+        assert transaction.sender == self.john.address
+        assert transaction.receiver == Address.new_from_bech32(
+            "drt1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq85hk5z"
+        )
+        assert transaction.value == 0
+        assert transaction.gas_limit
+        assert transaction.chain_id == "D"
+        assert (
+            transaction.data.decode()
+            == f"{self.multisig_bytecode.hex()}@0500@0504@02@3fb81f4303be6f7377350b8a595f94b13fd6cbce4c4c7d2c63e9e1f8f0d42cf1@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8"
         )
 
     def test_deposit_native_token(self):
@@ -259,7 +305,7 @@ class TestMultisigController:
 
         response = controller.is_signed_by(
             contract=self.contract,
-            user=Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"),
+            user=Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
             action_id=42,
         )
         assert response == 1
@@ -278,7 +324,7 @@ class TestMultisigController:
 
         response = controller.is_signed_by(
             contract=self.contract,
-            user=Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"),
+            user=Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
             action_id=42,
         )
         assert response == 0
@@ -333,7 +379,7 @@ class TestMultisigController:
 
         response = controller.get_user_role(
             contract=self.contract,
-            user=Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"),
+            user=Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
         )
         assert response == UserRole(1)
 
@@ -342,8 +388,8 @@ class TestMultisigController:
         controller = MultisigController(chain_id="D", network_provider=network_provider, abi=self.multisig_abi)
 
         board_members = [
-            Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"),
-            Address.new_from_bech32("drt1kp072dwz0arfz8m5lzmlypgu2nme9l9q33aty0znualvanfvmy5qd3yy8q"),
+            Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
+            Address.new_from_bech32("drt1k2s324ww2g0yj38qn2ch2jwctdy8mnfxep94q9arncc6xecg3xaq889n6e"),
         ]
 
         contract_query_response = SmartContractQueryResponse(
@@ -363,8 +409,8 @@ class TestMultisigController:
         controller = MultisigController(chain_id="D", network_provider=network_provider, abi=self.multisig_abi)
 
         proposers = [
-            Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"),
-            Address.new_from_bech32("drt1kp072dwz0arfz8m5lzmlypgu2nme9l9q33aty0znualvanfvmy5qd3yy8q"),
+            Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
+            Address.new_from_bech32("drt1k2s324ww2g0yj38qn2ch2jwctdy8mnfxep94q9arncc6xecg3xaq889n6e"),
         ]
 
         contract_query_response = SmartContractQueryResponse(
@@ -452,7 +498,7 @@ class TestMultisigController:
         response = controller.get_action_data(contract=self.contract, action_id=42)
         assert isinstance(response, SendAsyncCall)
         assert response.data.to == Address.new_from_bech32(
-            "drt1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq85hk5z"
+            "drt1qqqqqqqqqqqqqpgqdvmhpxxmwv2vfz3sfpggzfyl5qznuz5x05vqfcxarp"
         )
         assert response.data.endpoint_name == "add"
         assert response.data.arguments == [b"\x07"]
@@ -502,7 +548,7 @@ class TestMultisigController:
         response = controller.get_action_data(contract=self.contract, action_id=42)
         assert isinstance(response, AddBoardMember)
         assert response.address == Address.new_from_bech32(
-            "drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"
+            "drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"
         )
 
     def test_get_action_data_for_add_proposer(self):
@@ -520,7 +566,7 @@ class TestMultisigController:
         response = controller.get_action_data(contract=self.contract, action_id=42)
         assert isinstance(response, AddProposer)
         assert response.address == Address.new_from_bech32(
-            "drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"
+            "drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"
         )
 
     def test_get_action_data_for_sc_deploy_from_source(self):
@@ -606,7 +652,7 @@ class TestMultisigController:
         response = controller.get_action_data(contract=self.contract, action_id=42)
         assert isinstance(response, RemoveUser)
         assert response.address == Address.new_from_bech32(
-            "drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2"
+            "drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"
         )
 
     def test_get_action_signers(self):
@@ -619,7 +665,7 @@ class TestMultisigController:
             return_message="",
             return_data_parts=[
                 bytes.fromhex(
-                    "3ddf173c9e02c0e58fb1e552f473d98da6a4c3f23c7e034c912ee98a8dddce17b05fe535c27f46911f74f8b7f2051c54f792fca08c7ab23c53e77ececd2cd928"
+                    "8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8b2a11555ce521e4944e09ab17549d85b487dcd26c84b5017a39e31a3670889ba"
                 )
             ],
         )
@@ -627,8 +673,8 @@ class TestMultisigController:
 
         response = controller.get_action_signers(contract=self.contract, action_id=42)
         assert len(response) == 2
-        assert response[0] == Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2")
-        assert response[1] == Address.new_from_bech32("drt1kp072dwz0arfz8m5lzmlypgu2nme9l9q33aty0znualvanfvmy5qd3yy8q")
+        assert response[0] == Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c")
+        assert response[1] == Address.new_from_bech32("drt1k2s324ww2g0yj38qn2ch2jwctdy8mnfxep94q9arncc6xecg3xaq889n6e")
 
     def test_get_action_signers_count(self):
         network_provider = MockNetworkProvider()
@@ -661,7 +707,7 @@ class TestMultisigController:
         assert response == 4
 
     def test_propose_add_board_member(self):
-        bob = Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2")
+        bob = Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c")
 
         transaction = self.controller.create_transaction_for_propose_add_board_member(
             sender=self.john,
@@ -677,11 +723,11 @@ class TestMultisigController:
         assert transaction.chain_id == "D"
         assert (
             transaction.data.decode()
-            == "proposeAddBoardMember@3ddf173c9e02c0e58fb1e552f473d98da6a4c3f23c7e034c912ee98a8dddce17"
+            == "proposeAddBoardMember@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8"
         )
 
     def test_propose_add_proposer(self):
-        bob = Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2")
+        bob = Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c")
 
         transaction = self.controller.create_transaction_for_propose_add_proposer(
             sender=self.john,
@@ -697,11 +743,11 @@ class TestMultisigController:
         assert transaction.chain_id == "D"
         assert (
             transaction.data.decode()
-            == "proposeAddProposer@3ddf173c9e02c0e58fb1e552f473d98da6a4c3f23c7e034c912ee98a8dddce17"
+            == "proposeAddProposer@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8"
         )
 
     def test_propose_remove_user(self):
-        bob = Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2")
+        bob = Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c")
 
         transaction = self.controller.create_transaction_for_propose_remove_user(
             sender=self.john,
@@ -717,7 +763,7 @@ class TestMultisigController:
         assert transaction.chain_id == "D"
         assert (
             transaction.data.decode()
-            == "proposeRemoveUser@3ddf173c9e02c0e58fb1e552f473d98da6a4c3f23c7e034c912ee98a8dddce17"
+            == "proposeRemoveUser@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8"
         )
 
     def test_propose_change_quorum(self):
@@ -807,7 +853,7 @@ class TestMultisigController:
         )
 
     def test_propose_async_call(self):
-        contract = Address.new_from_bech32("drt1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq85hk5z")
+        contract = Address.new_from_bech32("drt1qqqqqqqqqqqqqpgqdvmhpxxmwv2vfz3sfpggzfyl5qznuz5x05vqfcxarp")
 
         transaction = self.controller.create_transaction_for_propose_async_call(
             sender=self.john,

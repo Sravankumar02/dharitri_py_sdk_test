@@ -50,12 +50,12 @@ class TestNativeAuthServer:
     BLOCK_HASH = "ab459013b27fdc6fe98eed567bd0c1754e0628a4cc16883bf0170a29da37ad46"
     TTL = 86400
     TOKEN = f"aHR0cHM6Ly9hcGkuZGhhcml0cmkub3Jn.{BLOCK_HASH}.{TTL}.e30"
-    ACCESS_TOKEN = "ZHJ0MXFuazJ2bXVxeXdmcXRkbmttYXV2cG04bHMweGgwMGs4eGV1cHVhZjZjbTZjZDRyeDg5cXFsbmt6dHA=.YUhSMGNITTZMeTloY0drdVpHaGhjbWwwY21rdWIzSm4uYWI0NTkwMTNiMjdmZGM2ZmU5OGVlZDU2N2JkMGMxNzU0ZTA2MjhhNGNjMTY4ODNiZjAxNzBhMjlkYTM3YWQ0Ni44NjQwMC5lMzA=.906e79d54e69e688680abee54ec0c49ce2561eb5abfd01865b31cb3ed738272c7cfc4fc8cc1c3590dd5757e622639b01a510945d7f7c9d1ceda20a50a817080d"
+    ACCESS_TOKEN = "ZHJ0MXFuazJ2bXVxeXdmcXRkbmttYXV2cG04bHMweGgwMGs4eGV1cHVhZjZjbTZjZDRyeDg5cXFsbmt6dHA.YUhSMGNITTZMeTloY0drdVpHaGhjbWwwY21rdWIzSm4uYWI0NTkwMTNiMjdmZGM2ZmU5OGVlZDU2N2JkMGMxNzU0ZTA2MjhhNGNjMTY4ODNiZjAxNzBhMjlkYTM3YWQ0Ni44NjQwMC5lMzA.906e79d54e69e688680abee54ec0c49ce2561eb5abfd01865b31cb3ed738272c7cfc4fc8cc1c3590dd5757e622639b01a510945d7f7c9d1ceda20a50a817080d"
     BLOCK_TIMESTAMP = 1671009408
     ORIGIN = "https://api.dharitri.org"
 
-    MULTISIG_ACCESS_TOKEN = "ZHJ0MXFuazJ2bXVxeXdmcXRkbmttYXV2cG04bHMweGgwMGs4eGV1cHVhZjZjbTZjZDRyeDg5cXFsbmt6dHA=.YUhSMGNITTZMeTloY0drdVpHaGhjbWwwY21rdWIzSm4uYWI0NTkwMTNiMjdmZGM2ZmU5OGVlZDU2N2JkMGMxNzU0ZTA2MjhhNGNjMTY4ODNiZjAxNzBhMjlkYTM3YWQ0Ni44NjQwMC5leUp0ZFd4MGFYTnBaeUk2SW1SeWRERnhjWEZ4Y1hGeGNYRnhjWEZ4Y0dkeE9UUTBhRGRvTm0xamEzYzJjVEJrTTJjeU1qTmphbm8wZVhSMmEyVnVPRFoxTURCemJIb3dOM0Z6SW4wPQ==.b38b3766de5fcc9f66b1bb65662404238b1eddad18436bea39a694db591dc27bc2a66c62c4dfec3ce09021de83d324cd5f4e49a329833c67baafdd71ab2f750b"
-    IMPERSONATE_ACCESS_TOKEN = "ZHJ0MXFuazJ2bXVxeXdmcXRkbmttYXV2cG04bHMweGgwMGs4eGV1cHVhZjZjbTZjZDRyeDg5cXFsbmt6dHA=.YUhSMGNITTZMeTloY0drdVpHaGhjbWwwY21rdWIzSm4uYWI0NTkwMTNiMjdmZGM2ZmU5OGVlZDU2N2JkMGMxNzU0ZTA2MjhhNGNjMTY4ODNiZjAxNzBhMjlkYTM3YWQ0Ni44NjQwMC5leUpwYlhCbGNuTnZibUYwWlNJNkltUnlkREZ4Y1hGeGNYRnhjWEZ4Y1hGeGNHZHhPVFEwYURkb05tMWphM2MyY1RCa00yY3lNak5qYW5vMGVYUjJhMlZ1T0RaMU1EQnpiSG93TjNGekluMD0=.91c5ee2f4020f0c1f098331760c6963b6b300dc3002d9caa9479d8d1509edf4c44ee518d8f19506830232d76b5baeee5ab6f442354dac69a35e69c290b638d04"
+    MULTISIG_ACCESS_TOKEN = "ZHJ0MXFuazJ2bXVxeXdmcXRkbmttYXV2cG04bHMweGgwMGs4eGV1cHVhZjZjbTZjZDRyeDg5cXFsbmt6dHA.YUhSMGNITTZMeTloY0drdVpHaGhjbWwwY21rdWIzSm4uYWI0NTkwMTNiMjdmZGM2ZmU5OGVlZDU2N2JkMGMxNzU0ZTA2MjhhNGNjMTY4ODNiZjAxNzBhMjlkYTM3YWQ0Ni44NjQwMC5leUp0ZFd4MGFYTnBaeUk2SW1SeWRERnhjWEZ4Y1hGeGNYRnhjWEZ4Y0dkeE9UUTBhRGRvTm0xamEzYzJjVEJrTTJjeU1qTmphbm8wZVhSMmEyVnVPRFoxTURCemJIb3dOM0Z6SW4wPQ.b38b3766de5fcc9f66b1bb65662404238b1eddad18436bea39a694db591dc27bc2a66c62c4dfec3ce09021de83d324cd5f4e49a329833c67baafdd71ab2f750b"
+    IMPERSONATE_ACCESS_TOKEN = "ZHJ0MXFuazJ2bXVxeXdmcXRkbmttYXV2cG04bHMweGgwMGs4eGV1cHVhZjZjbTZjZDRyeDg5cXFsbmt6dHA.YUhSMGNITTZMeTloY0drdVpHaGhjbWwwY21rdWIzSm4uYWI0NTkwMTNiMjdmZGM2ZmU5OGVlZDU2N2JkMGMxNzU0ZTA2MjhhNGNjMTY4ODNiZjAxNzBhMjlkYTM3YWQ0Ni44NjQwMC5leUpwYlhCbGNuTnZibUYwWlNJNkltUnlkREZ4Y1hGeGNYRnhjWEZ4Y1hGeGNHZHhPVFEwYURkb05tMWphM2MyY1RCa00yY3lNak5qYW5vMGVYUjJhMlZ1T0RaMU1EQnpiSG93TjNGekluMD0.91c5ee2f4020f0c1f098331760c6963b6b300dc3002d9caa9479d8d1509edf4c44ee518d8f19506830232d76b5baeee5ab6f442354dac69a35e69c290b638d04"
     MULTISIG_ADDRESS = "drt1qqqqqqqqqqqqqpgq944h7h6mckw6q0d3g223cjz4ytvken86u00slz07qs"
 
     default_config = NativeAuthServerConfig(
@@ -402,10 +402,17 @@ class TestNativeAuthServer:
 
     def test_two_wildacards_not_accepted(self):
         config = deepcopy(self.default_config)
+<<<<<<< HEAD
+        config.accepted_origins = ["*.dharitri*.com"]
+
+        with pytest.raises(
+            NativeAuthInvalidWildcardOriginError, match=re.escape("Invalid wildcard origin: *.dharitri*.com")
+=======
         config.accepted_origins = ["*.dharitri*.org"]
 
         with pytest.raises(
             NativeAuthInvalidWildcardOriginError, match=re.escape("Invalid wildcard origin: *.dharitri*.org")
+>>>>>>> main
         ):
             server = NativeAuthServer(config)
             server.validate(self.ACCESS_TOKEN)
@@ -436,7 +443,7 @@ class TestNativeAuthServer:
         mock_side_effect(mocker, responses)
 
         config = deepcopy(self.default_config)
-        config.accepted_origins = ["*.test.org"]
+        config.accepted_origins = ["*.test.com"]
 
         with pytest.raises(
             NativeAuthOriginNotAcceptedError, match=re.escape("The origin: https://api.dharitri.org is not accepted.")

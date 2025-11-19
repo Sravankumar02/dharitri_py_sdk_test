@@ -34,7 +34,7 @@ class TestEntrypoint:
 
         assert (
             transaction.signature.hex()
-            == "2b8d6ea92eb346e45d512d34e84e544276bbf83b5f41db2b14356ebf4446dc0dca1c10dad4e44a189d83a5c65b838a37d6f3e00c54a5e83cd1206e81dbbd150b"
+            == "d63b681a66062e26739c28b4376abe4daa31e19f23e1368d65741625d342cfdda70a37dd52506690b878ecac3e8cec52d309fc479d7aa3a1262127b82e3cbf0d"
         )
         assert transaction.version == 2
         assert transaction.options == 0
@@ -101,7 +101,10 @@ class TestEntrypoint:
         assert len(query_result) == 1
         assert query_result[0] == 7
 
+<<<<<<< HEAD
     @pytest.mark.networkInteraction
+=======
+>>>>>>> main
     def test_get_account_factory_and_create_transaction(self):
         sender = Account.new_from_pem(self.alice_pem)
         sender.nonce = self.entrypoint.recall_account_nonce(sender.address)
@@ -122,7 +125,7 @@ class TestEntrypoint:
     @pytest.mark.skip("Requires Ledger Device.")
     def test_create_and_send_transaction_using_ledger_account(self):
         factory = self.entrypoint.create_transfers_transactions_factory()
-        alice = Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh")
+        alice = Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf")
 
         for i in range(2):
             account = LedgerAccount(i)
@@ -226,7 +229,10 @@ class TestEntrypoint:
         assert isinstance(entrypoint.network_provider, ApiNetworkProvider)
         assert entrypoint.network_provider.url == "https://devnet-api.dharitri.org"
 
+<<<<<<< HEAD
     @pytest.mark.networkInteraction
+=======
+>>>>>>> main
     def test_ensure_chain_id_is_correctly_fetched(self):
         api = ApiNetworkProvider("https://devnet-api.dharitri.org")
         entrypoint = NetworkEntrypoint.new_from_network_provider(api)
@@ -234,7 +240,10 @@ class TestEntrypoint:
         _ = entrypoint.create_delegation_controller()
         assert entrypoint.chain_id == "D"
 
+<<<<<<< HEAD
     @pytest.mark.networkInteraction
+=======
+>>>>>>> main
     def test_should_estimate_gas_limit(self):
         entrypoint = DevnetEntrypoint(with_gas_limit_estimator=True, gas_limit_multiplier=1.5)
         controller = entrypoint.create_transfers_controller()

@@ -7,7 +7,11 @@ allow-direct-references = true
 
 [project]
 name = "dharitri-py-sdk"
-version = "0.0.5"
+<<<<<<< HEAD
+version = "0.0.6"
+=======
+version = "0.0.7"
+>>>>>>> main
 authors = [
   { name="DharitrI" },
 ]

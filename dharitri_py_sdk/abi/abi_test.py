@@ -158,10 +158,10 @@ def test_decode_endpoint_output_parameters_artificial_contract():
 def test_encode_endpoint_input_parameters_multisig_propose_batch():
     abi = Abi.load(testdata / "multisig-full.abi.json")
 
-    alice = Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh")
+    alice = Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf")
     expected_encoded_values = [
         bytes.fromhex(
-            "05|391f932707a9dfa86d3bcbb3d5d0cc9f25ad0e680fe499f107d844b7e6ea71d5|000000080de0b6b3a7640000|010000000000e4e1c0|000000076578616d706c65|00000002000000020342000000020743".replace(
+            "05|0139472eff6886771a982f3083da5d421f24c29181e63888228dc81ca60d69e1|000000080de0b6b3a7640000|010000000000e4e1c0|000000076578616d706c65|00000002000000020342000000020743".replace(
                 "|", ""
             )
         )
@@ -318,8 +318,8 @@ def test_decode_endpoint_output_parameters_multisig_get_pending_action_full_info
         [
             "0000002A",
             "0000002A",
-            "05|391f932707a9dfa86d3bcbb3d5d0cc9f25ad0e680fe499f107d844b7e6ea71d5|000000080de0b6b3a7640000|010000000000e4e1c0|000000076578616d706c65|00000002000000020342000000020743",
-            "00000002|391f932707a9dfa86d3bcbb3d5d0cc9f25ad0e680fe499f107d844b7e6ea71d5|3ddf173c9e02c0e58fb1e552f473d98da6a4c3f23c7e034c912ee98a8dddce17",
+            "05|0139472eff6886771a982f3083da5d421f24c29181e63888228dc81ca60d69e1|000000080de0b6b3a7640000|010000000000e4e1c0|000000076578616d706c65|00000002000000020342000000020743",
+            "00000002|0139472eff6886771a982f3083da5d421f24c29181e63888228dc81ca60d69e1|8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8",
         ]
     ).replace("|", "")
 
@@ -333,7 +333,7 @@ def test_decode_endpoint_output_parameters_multisig_get_pending_action_full_info
     action_data_0 = getattr(action_full_info.action_data, "0")
     assert (
         action_data_0.to
-        == Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh").get_public_key()
+        == Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf").get_public_key()
     )
     assert action_data_0.rewa_amount == 1000000000000000000
     assert action_data_0.opt_gas_limit == 15000000
@@ -341,8 +341,8 @@ def test_decode_endpoint_output_parameters_multisig_get_pending_action_full_info
     assert action_data_0.arguments == [bytes([0x03, 0x42]), bytes([0x07, 0x43])]
 
     assert action_full_info.signers == [
-        Address.new_from_bech32("drt18y0exfc84806smfmeweat5xvnuj66rngpljfnug8mpzt0eh2w82sc0eqzh").get_public_key(),
-        Address.new_from_bech32("drt18h03w0y7qtqwtra3u4f0gu7e3kn2fslj83lqxny39m5c4rwaectswerhd2").get_public_key(),
+        Address.new_from_bech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf").get_public_key(),
+        Address.new_from_bech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c").get_public_key(),
     ]
 
 
@@ -430,6 +430,7 @@ def test_decode_custom_struct():
                         {"name": "opt_function", "type": "Option<bytes>"},
                         {"name": "opt_arguments", "type": "Option<List<bytes>>"},
                         {"name": "opt_gas_limit", "type": "Option<u64>"},
+                        {"name": "managed_decimal", "type": "ManagedDecimal<usize>"},
                     ],
                 }
             },
@@ -440,12 +441,15 @@ def test_decode_custom_struct():
     with pytest.raises(Exception, match=re.escape('Missing custom type! No custom type found for name: "customType"')):
         abi.decode_custom_type("customType", b"")
 
-    decoded_type = abi.decode_custom_type(name="DepositEvent", data=bytes.fromhex("00000000000003db000000"))
+    decoded_type = abi.decode_custom_type(
+        name="DepositEvent", data=bytes.fromhex("00000000000003db0000000000000202bc00000002")
+    )
     assert decoded_type == SimpleNamespace(
         tx_nonce=987,
         opt_function=None,
         opt_arguments=None,
         opt_gas_limit=None,
+        managed_decimal=7,
     )
 
 
